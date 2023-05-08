@@ -6,6 +6,7 @@ extends Node3D
 #------------------------------------------------#
 
 @export var fast_close := true
+@export var mob_scene: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,3 +40,19 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func _on_mob_timer_timeout():
+	print_debug("Let's print some enemies")
+	# Create a new instance of the Mob scene.
+	var mob = mob_scene.instantiate()
+	# Choose a random location on the SpawnPath.
+	# We store the reference to the SpawnLocation node.
+	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
+	# And give it a random offset.
+	mob_spawn_location.progress_ratio = randf()
+	
+	mob.follow($Player, mob_spawn_location.position)
+	# Spawn the mob by adding it to the Main scene.
+	add_child(mob)
+

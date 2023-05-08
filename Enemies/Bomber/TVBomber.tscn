@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7dit75pqcidj"]
+
+[ext_resource type="Texture2D" uid="uid://cvoncrxkjv2p7" path="res://Enemies/Bomber/TV-Bomber.png" id="1_434j5"]
+[ext_resource type="Script" path="res://Enemies/Bomber/TVBomber.gd" id="1_mml45"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xcwj5"]
+
+[node name="TVBomber" type="CharacterBody3D" groups=["Enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.489969)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_mml45")
+
+[node name="Piviot" type="Node3D" parent="."]
+
+[node name="Character" type="Sprite3D" parent="Piviot"]
+billboard = 1
+texture = ExtResource("1_434j5")
+hframes = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+shape = SubResource("SphereShape3D_xcwj5")
+
+[node name="FloorRayCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, -4, 0)
+
+[node name="AnimationTimer" type="Timer" parent="."]
+wait_time = 0.04
+autostart = true
+
+[connection signal="timeout" from="AnimationTimer" to="." method="_on_animation_timer_timeout"]
