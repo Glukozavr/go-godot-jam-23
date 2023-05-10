@@ -16,6 +16,7 @@ var input_axis := Vector2()
 
 func damage():
 	print("OUCH!")
+		
 
 # Called every physics tick. 'delta' is constant
 func _physics_process(delta: float) -> void:

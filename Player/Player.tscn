@@ -8,7 +8,6 @@
 collision_mask = 7
 
 [node name="Head" parent="." index="1" instance=ExtResource("2_41iu1")]
-visible = false
 y_limit = 50.0
 
 [node name="Sprint" type="Node" parent="." index="2"]

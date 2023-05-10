@@ -13,6 +13,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var frame_num = 0
 @onready var last_frame = $Piviot/Character.hframes
 
+func damage():
+	print("Oh, ")
+	queue_free()
+
 # This function will be called from the Main scene.
 func follow(node: Node3D, position: Vector3):
 	player = node

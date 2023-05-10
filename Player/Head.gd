@@ -9,12 +9,16 @@ extends Node3D
 var mouse_axis := Vector2()
 var rot := Vector3()
 
+func _process(delta):
+	if Input.is_action_pressed("fire"):
+		# Check for bullets, but genuinly shoot
+		$Guns/Gun.play_shoot()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_sensitivity = mouse_sensitivity / 1000
 	y_limit = deg_to_rad(y_limit)
-
 
 # Called when there is an input event
 func _input(event: InputEvent) -> void:
@@ -42,3 +46,7 @@ func camera_rotation() -> void:
 	
 	get_owner().rotation.y = rot.y
 	rotation.x = rot.x
+
+
+func _on_start_timer_timeout():
+	$Guns/Gun.play_show()

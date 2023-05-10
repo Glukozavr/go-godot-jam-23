@@ -274,7 +274,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.34811, 1)
 curve = SubResource("Curve3D_7tubn")
 
 [node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
-transform = Transform3D(-0.137085, -0.000348157, 0.990559, -1.45519e-11, 1, 0.000351475, -0.990559, 4.81821e-05, -0.137085, -13.0814, 5, -11.9811)
+transform = Transform3D(-0.136563, -0.000348142, 0.990631, -2.91038e-11, 1, 0.000351434, -0.990631, 4.7993e-05, -0.136563, -13.0814, 5, -11.9811)
 v_offset = 5.0
 
 [node name="MobTimer" type="Timer" parent="."]

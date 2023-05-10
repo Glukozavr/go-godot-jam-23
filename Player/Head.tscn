@@ -1,10 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8drbos167vf8"]
+[gd_scene load_steps=3 format=3 uid="uid://b8drbos167vf8"]
 
 [ext_resource type="Script" path="res://Player/Head.gd" id="1_enjfg"]
+[ext_resource type="PackedScene" uid="uid://b4ajdsvucs4og" path="res://Player/Guns/Gun.tscn" id="2_awf2l"]
 
 [node name="Head" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 1.73319)
 script = ExtResource("1_enjfg")
 
 [node name="Camera" type="Camera3D" parent="."]
 current = true
+
+[node name="Guns" type="Node3D" parent="."]
+
+[node name="Gun" parent="Guns" instance=ExtResource("2_awf2l")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.239109, -0.792364)
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
