@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://duueku6du6obc"]
+[gd_scene load_steps=30 format=3 uid="uid://duueku6du6obc"]
 
 [ext_resource type="Script" path="res://Levels/L_Main.gd" id="1_km1jj"]
 [ext_resource type="PackedScene" uid="uid://bdupkh0grwy27" path="res://Player/Player.tscn" id="1_qgept"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://btx8pwpwosrp7" path="res://Enemies/Shooter/TVShooter.tscn" id="2_stakm"]
 [ext_resource type="PackedScene" uid="uid://cdn7d5mxwdyks" path="res://Levels/Geometry/Wall.tscn" id="3_jw8hm"]
 [ext_resource type="Material" path="res://Levels/Materials/M_Dark.tres" id="4_m7xar"]
+[ext_resource type="PackedScene" uid="uid://w0jyhqa8ihg7" path="res://Enemies/Mistress/Mistress.tscn" id="7_bv83y"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_egctf"]
 size = Vector3(8, 4, 4)
@@ -279,7 +280,7 @@ v_offset = 5.0
 
 [node name="MobTimer" type="Timer" parent="."]
 
-[node name="TVShooter" parent="." instance=ExtResource("2_stakm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0885, -5.57717)
+[node name="Mistress" parent="." instance=ExtResource("7_bv83y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45875, -10.0192)
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

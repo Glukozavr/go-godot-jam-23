@@ -28,6 +28,7 @@ func receive_damage(dmg):
 func follow(node: Node3D, position: Vector3):
 	if dead:
 		return
+		
 	player = node
 	# We position the mob by placing it at start_position
 	# and rotate it towards player_position, so it looks at the player.
@@ -48,14 +49,17 @@ func is_shooting():
 func shoot():
 	if dead:
 		return
-	if $AnimatedSprite3D.is_playing() or $AnimatedSprite3D.animation != "shoot":
+	if not $AnimatedSprite3D.is_playing() or $AnimatedSprite3D.animation != "shoot":
+		velocity.x = 0
+		velocity.z = 0
 		$AnimatedSprite3D.play("shoot")
-		print("Sending plasma!", position, player.position)
+		print("Htting HArd!!", position, player.position)
 		var bullet = bullet_scene.instantiate()
 		bullet.fly_from_to(to_global($LaunchMarker.position), player.position)
 		get_tree().current_scene.add_child(bullet)
 
 func _physics_process(delta):
+
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	else:
@@ -74,8 +78,6 @@ func _physics_process(delta):
 	elif in_range:
 		if player:
 			look_at(player.position, Vector3.UP)
-		velocity.x = 0
-		velocity.z = 0
 		if not in_attack:
 			attack()
 	elif not is_shooting():
@@ -93,16 +95,6 @@ func _on_area_3d_body_entered(body):
 	player = body
 
 
-func _on_animated_sprite_3d_animation_looped():
-	if dead:
-		return
-	print("AGAIN!")
-	if in_attack:
-		shoot()
-	else:
-		$AnimatedSprite3D.play("idle")
-
-
 func _on_area_3d_body_exited(body):
 	in_range = false
 
@@ -110,9 +102,9 @@ func _on_area_3d_body_exited(body):
 func _on_animated_sprite_3d_animation_finished():
 	if dead:
 		return
-	if $AnimatedSprite3D.animation == "shoot":	
+	if $AnimatedSprite3D.animation == "shoot":
 		print("AGAIN!")
-		if in_attack:
+		if in_attack and in_range:
 			shoot()
 		else:
 			$AnimatedSprite3D.play("idle")
