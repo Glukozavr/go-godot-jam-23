@@ -1,6 +1,7 @@
 extends Node3D
 
 signal on_ammo_update
+signal on_hidden
 
 @export var bullet_scene: PackedScene
 @export var ammo:= 100
@@ -12,18 +13,21 @@ signal on_ammo_update
 @export var hide_anim:= "hide"
 @export var reload_anim:= "reload"
 @export var shoot_anim:= "shoot"
+var total_ammo_original
 
 var is_busy:= false
 var is_ready_to_shoot:= false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	total_ammo_original = ammo
 
 func play_idle():
 	play_anim(idle_anim)
 	
 func play_show():
+	ammo = total_ammo_original
+	current_load = load
 	play_anim(show_anim)
 	
 func play_hide():
@@ -65,9 +69,11 @@ func _on_animation_player_animation_started(anim_name):
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name != idle_anim:
 		is_busy = false
-	if anim_name == show_anim or anim_name == reload_anim:
+	if anim_name == show_anim:
+		on_ammo_update.emit(ammo, current_load, load)
 		is_ready_to_shoot = true
 	if anim_name == reload_anim:
+		is_ready_to_shoot = true
 		var new_load = load
 		if ammo - new_load < 0:
 			new_load = ammo
@@ -75,4 +81,6 @@ func _on_animation_player_animation_finished(anim_name):
 			
 		current_load = new_load
 		on_ammo_update.emit(ammo, current_load, load)
+	if anim_name == hide_anim:
+		on_hidden.emit()
 		

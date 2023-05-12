@@ -1,5 +1,7 @@
 extends Node3D
 
+signal on_ammo_update
+signal on_hidden
 
 @export var speed:= 1
 @export var damage:= 30
@@ -64,7 +66,10 @@ func _on_animated_sprite_3d_animation_finished():
 	if anim_name != idle_anim:
 		is_busy = false
 	if anim_name == show_anim:
+		on_ammo_update.emit(ammo, current_load, load)
 		is_ready_to_shoot = true
+	if anim_name == hide_anim:
+		on_hidden.emit()
 
 
 func _on_animated_sprite_3d_animation_looped():

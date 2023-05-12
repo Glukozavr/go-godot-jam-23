@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://klxqba2ivvea"]
+[gd_scene load_steps=13 format=3 uid="uid://klxqba2ivvea"]
 
 [ext_resource type="Script" path="res://UI/GUI.gd" id="1_508qe"]
 [ext_resource type="Texture2D" uid="uid://xqoug0lxwr5t" path="res://UI/HP-0.png" id="1_tmk81"]
@@ -32,6 +32,9 @@ frame_3/texture = ExtResource("4_ww1ni")
 frame_3/duration = 0.4
 frame_4/texture = ExtResource("5_ofdlm")
 frame_4/duration = 0.4
+
+[sub_resource type="LabelSettings" id="LabelSettings_gat1r"]
+font_size = 50
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -75,4 +78,31 @@ offset_right = 520.0
 offset_bottom = 608.0
 text = "10 / 100
 "
+vertical_alignment = 1
+
+[node name="PickUp" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="PickUp"]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 240.0
+offset_right = 608.0
+offset_bottom = 312.0
+text = "E"
+label_settings = SubResource("LabelSettings_gat1r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PickUp"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 312.0
+offset_right = 624.0
+offset_bottom = 338.0
+text = "to pickup"
+horizontal_alignment = 1
 vertical_alignment = 1

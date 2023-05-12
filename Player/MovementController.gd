@@ -16,6 +16,8 @@ var input_axis := Vector2()
 @onready var gravity: float = (ProjectSettings.get_setting("physics/3d/default_gravity") 
 		* gravity_multiplier)
 
+var item_buffer
+
 func _ready():
 	$GUI.set_health(hp)
 	$GUI.set_ammo($Head.get_current_load(), $Head.get_ammo())
@@ -46,6 +48,21 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func item_found(item):
+	item_buffer = item
+	$GUI.show_pickup_tip()
+	
+	
+func item_lost(item):
+	item_buffer = null
+	$GUI.hide_pickup_tip()
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"use") and item_buffer:
+		print("Consuming ", item_buffer.type)
+		$Head.use_weapon(item_buffer.type)
+		item_buffer.consume()
+	
 
 func direction_input() -> void:
 	direction = Vector3()
@@ -77,3 +94,4 @@ func accelerate(delta: float) -> void:
 
 func _on_head_ammo_update(ammo, current_load, load):
 	$GUI.set_ammo(current_load, ammo)
+

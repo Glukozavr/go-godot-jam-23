@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://duueku6du6obc"]
+[gd_scene load_steps=31 format=3 uid="uid://duueku6du6obc"]
 
 [ext_resource type="Script" path="res://Levels/L_Main.gd" id="1_km1jj"]
 [ext_resource type="PackedScene" uid="uid://bdupkh0grwy27" path="res://Player/Player.tscn" id="1_qgept"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://btx8pwpwosrp7" path="res://Enemies/Shooter/TVShooter.tscn" id="2_stakm"]
 [ext_resource type="PackedScene" uid="uid://cdn7d5mxwdyks" path="res://Levels/Geometry/Wall.tscn" id="3_jw8hm"]
 [ext_resource type="Material" path="res://Levels/Materials/M_Dark.tres" id="4_m7xar"]
-[ext_resource type="PackedScene" uid="uid://w0jyhqa8ihg7" path="res://Enemies/Mistress/Mistress.tscn" id="7_bv83y"]
+[ext_resource type="PackedScene" uid="uid://xsxkt58omh2e" path="res://Player/Guns/Sword/SwordItem.tscn" id="7_2718v"]
+[ext_resource type="PackedScene" uid="uid://pkhjsrfh7yjp" path="res://Player/Guns/Gun/GunItem.tscn" id="8_v15jm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_egctf"]
 size = Vector3(8, 4, 4)
@@ -280,7 +281,22 @@ v_offset = 5.0
 
 [node name="MobTimer" type="Timer" parent="."]
 
-[node name="Mistress" parent="." instance=ExtResource("7_bv83y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45875, -10.0192)
+[node name="SwordItem" parent="." instance=ExtResource("7_2718v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.534922, 0.99071, -5.79683)
+
+[node name="SwordItem2" parent="." instance=ExtResource("7_2718v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.76982, 0.99071, -5.79683)
+
+[node name="SwordItem3" parent="." instance=ExtResource("7_2718v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30676, 0.99071, -5.79683)
+
+[node name="GunItem" parent="." instance=ExtResource("8_v15jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.17702, 1.28149, -4.86635)
+
+[node name="GunItem2" parent="." instance=ExtResource("8_v15jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02356, 1.28149, -4.86635)
+
+[node name="GunItem3" parent="." instance=ExtResource("8_v15jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1838, 1.28149, -4.86635)
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

@@ -29,6 +29,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_rxpn6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_14odu")
 }],
 "loop": false,
 "name": &"attack",
@@ -91,6 +94,8 @@ script = ExtResource("1_onsri")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ttcif")
 animation = &"attack"
+frame = 5
+frame_progress = 1.0
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.01267)
