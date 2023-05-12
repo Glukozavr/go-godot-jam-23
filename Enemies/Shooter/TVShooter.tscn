@@ -1,0 +1,117 @@
+[gd_scene load_steps=19 format=3 uid="uid://btx8pwpwosrp7"]
+
+[ext_resource type="Texture2D" uid="uid://dmphh2cvxlpgm" path="res://Enemies/Shooter/Shooter_Die_0.png" id="1_7q5p0"]
+[ext_resource type="Script" path="res://Enemies/Shooter/TVShooter.gd" id="1_x5hxo"]
+[ext_resource type="PackedScene" uid="uid://b4jhgek8s8odq" path="res://Enemies/Shooter/PlasmaBall.tscn" id="2_6hrfl"]
+[ext_resource type="Texture2D" uid="uid://cu0j0nvw2xjn2" path="res://Enemies/Shooter/Shooter_Die_1.png" id="2_m4027"]
+[ext_resource type="Texture2D" uid="uid://cchlloi848e6s" path="res://Enemies/Shooter/Shooter_Die_2.png" id="3_bablw"]
+[ext_resource type="Texture2D" uid="uid://7q2fdhtbtcu1" path="res://Enemies/Shooter/Shooter_Die_3.png" id="4_3lrt6"]
+[ext_resource type="Texture2D" uid="uid://c86ryt8d05j4u" path="res://Enemies/Shooter/Shooter_Idle.png" id="5_tarbf"]
+[ext_resource type="Texture2D" uid="uid://dgqncmtpi3jka" path="res://Enemies/Shooter/Shooter_Shoot_0.png" id="6_1fmnk"]
+[ext_resource type="Texture2D" uid="uid://dekw6sdpws15q" path="res://Enemies/Shooter/Shooter_Shoot_1.png" id="7_gyfgd"]
+[ext_resource type="Texture2D" uid="uid://c1j1jgqyx5il0" path="res://Enemies/Shooter/Shooter_Walk_0.png" id="8_k6iq4"]
+[ext_resource type="Texture2D" uid="uid://do365ecjn3bjh" path="res://Enemies/Shooter/Shooter_Walk_1.png" id="9_od7ys"]
+[ext_resource type="Texture2D" uid="uid://5lwo7bsr7e2x" path="res://Enemies/Shooter/Shooter_Walk_2.png" id="10_dh5ns"]
+[ext_resource type="Texture2D" uid="uid://dyqaly7wyscxq" path="res://Enemies/Shooter/Shooter_Walk_3.png" id="11_cjy5v"]
+[ext_resource type="Texture2D" uid="uid://rckbuupmmcg4" path="res://Enemies/Shooter/Shooter_Walk_4.png" id="12_65mtg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lr5rh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_we1t3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7q5p0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m4027")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bablw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3lrt6")
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tarbf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1fmnk")
+}, {
+"duration": 5.0,
+"texture": ExtResource("7_gyfgd")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_k6iq4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_od7ys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_dh5ns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_cjy5v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_65mtg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nar8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c7ego"]
+
+[node name="TVShooter" type="CharacterBody3D" groups=["Enemies"]]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_x5hxo")
+bullet_scene = ExtResource("2_6hrfl")
+speed = 8
+health = 80
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.8, 0, 0, 0, 1.2, 0.000149727, 0, 0)
+shape = SubResource("CapsuleShape3D_lr5rh")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_we1t3")
+animation = &"die"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(16.0316, 0, 0, 0, 1, 0, 0, 0, 14.0526, 0, 0, 0)
+shape = SubResource("BoxShape3D_6nar8")
+
+[node name="LaunchMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.448717, 0.707067, -0.859205)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchMarker"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_c7ego")
+
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

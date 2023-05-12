@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxcqsik4q6aor"]
+
+[ext_resource type="Script" path="res://Player/Guns/Gun/Bullet.gd" id="1_iqbba"]
+[ext_resource type="Texture2D" uid="uid://vug0k56ysq8o" path="res://Enemies/Shooter/PlasmaBall0.tres" id="2_gnw58"]
+[ext_resource type="Texture2D" uid="uid://trf6rbfqbggr" path="res://Enemies/Shooter/PlasmaBall1.tres" id="3_gu3j5"]
+[ext_resource type="Texture2D" uid="uid://c6ih4murvav8k" path="res://Enemies/Shooter/PlasmaBall2.tres" id="4_vp7fd"]
+[ext_resource type="Texture2D" uid="uid://cm7s3facaxrb4" path="res://Enemies/Shooter/PlasmaBall3.tres" id="5_r8hhs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hibq5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ld3ls"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a3uj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gnw58")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gu3j5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vp7fd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r8hhs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Bullet" type="CharacterBody3D"]
+collision_layer = 8
+script = ExtResource("1_iqbba")
+speed = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_hibq5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+mesh = SubResource("SphereMesh_ld3ls")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="MeshInstance3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_a3uj8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

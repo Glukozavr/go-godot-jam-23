@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name MovementController
 
+@export var hp_max := 100
+@export var hp := 100
 
 @export var gravity_multiplier := 3.0
 @export var speed := 10
@@ -14,8 +16,17 @@ var input_axis := Vector2()
 @onready var gravity: float = (ProjectSettings.get_setting("physics/3d/default_gravity") 
 		* gravity_multiplier)
 
-func damage():
-	print("OUCH!")
+func _ready():
+	$GUI.set_health(hp)
+	$GUI.set_ammo($Head.get_current_load(), $Head.get_ammo())
+
+func receive_damage(dmg):
+	hp = hp - dmg
+	if hp < 0:
+		hp = 0
+		get_tree().reload_current_scene()
+	
+	$GUI.set_health(hp)
 		
 
 # Called every physics tick. 'delta' is constant
@@ -62,3 +73,7 @@ func accelerate(delta: float) -> void:
 	
 	velocity.x = temp_vel.x
 	velocity.z = temp_vel.z
+
+
+func _on_head_ammo_update(ammo, current_load, load):
+	$GUI.set_ammo(current_load, ammo)

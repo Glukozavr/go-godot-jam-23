@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 # Minimum speed of the mob in meters per second.
 @export var speed = 3
+@export var health = 20
+@export var damage = 20
 
 # Distance from the floor for the flight
 @export var fly_height = 2
@@ -13,9 +15,11 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var frame_num = 0
 @onready var last_frame = $Piviot/Character.hframes
 
-func damage():
-	print("Oh, ")
-	queue_free()
+func receive_damage(dmg):
+	health = health - dmg
+	if health <= 0:
+		health = 0
+		queue_free()
 
 # This function will be called from the Main scene.
 func follow(node: Node3D, position: Vector3):
@@ -54,11 +58,10 @@ func _physics_process(delta):
 		if collision.get_collider().is_in_group("Player"):
 			var player = collision.get_collider()
 			print("Reached player!")
-			player.damage()
+			player.receive_damage(damage)
 			queue_free()
 	
 	move_and_slide()
-
 
 func _on_animation_timer_timeout():
 	frame_num = frame_num + 1

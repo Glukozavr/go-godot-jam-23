@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://klxqba2ivvea"]
+
+[ext_resource type="Script" path="res://UI/GUI.gd" id="1_508qe"]
+[ext_resource type="Texture2D" uid="uid://xqoug0lxwr5t" path="res://UI/HP-0.png" id="1_tmk81"]
+[ext_resource type="Texture2D" uid="uid://cxabgha7ld6xf" path="res://UI/AMMO-0.png" id="1_yg1tx"]
+[ext_resource type="Texture2D" uid="uid://c8dbhvek0aj13" path="res://UI/AMMO-1.png" id="2_4afrc"]
+[ext_resource type="Texture2D" uid="uid://beow56ayc35lq" path="res://UI/HP-1.png" id="2_6jero"]
+[ext_resource type="Texture2D" uid="uid://dbhxn7tl1wwce" path="res://UI/AMMO-2.png" id="3_2f4t2"]
+[ext_resource type="Texture2D" uid="uid://dt0ybe8qh0e12" path="res://UI/HP-2.png" id="3_8ms4d"]
+[ext_resource type="Texture2D" uid="uid://djuevnjhxxpb5" path="res://UI/HP-3.png" id="4_ww1ni"]
+[ext_resource type="Texture2D" uid="uid://bdma2mkcvnppp" path="res://UI/HP-4.png" id="5_ofdlm"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_h6oc2"]
+frames = 3
+frame_0/texture = ExtResource("1_yg1tx")
+frame_0/duration = 0.4
+frame_1/texture = ExtResource("2_4afrc")
+frame_1/duration = 0.4
+frame_2/texture = ExtResource("3_2f4t2")
+frame_2/duration = 0.4
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_1y8hh"]
+frames = 5
+speed_scale = 0.4
+frame_0/texture = ExtResource("1_tmk81")
+frame_0/duration = 0.4
+frame_1/texture = ExtResource("2_6jero")
+frame_1/duration = 0.4
+frame_2/texture = ExtResource("3_8ms4d")
+frame_2/duration = 0.4
+frame_3/texture = ExtResource("4_ww1ni")
+frame_3/duration = 0.4
+frame_4/texture = ExtResource("5_ofdlm")
+frame_4/duration = 0.4
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_508qe")
+
+[node name="Ammo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 512.0
+offset_right = 132.214
+offset_bottom = 643.0
+texture = SubResource("AnimatedTexture_h6oc2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Health" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 448.0
+offset_right = 135.429
+offset_bottom = 584.0
+texture = SubResource("AnimatedTexture_1y8hh")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="HealthText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 480.0
+offset_right = 520.0
+offset_bottom = 544.0
+text = "100"
+vertical_alignment = 1
+
+[node name="AmmoText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 544.0
+offset_right = 520.0
+offset_bottom = 608.0
+text = "10 / 100
+"
+vertical_alignment = 1

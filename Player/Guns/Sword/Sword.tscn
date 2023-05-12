@@ -1,0 +1,106 @@
+[gd_scene load_steps=14 format=3 uid="uid://cnuwyhqalld81"]
+
+[ext_resource type="Script" path="res://Player/Guns/Sword/Sword.gd" id="1_onsri"]
+[ext_resource type="Texture2D" uid="uid://d1s3ms04be7uu" path="res://Player/Guns/Sword/Sword5.tres" id="2_14odu"]
+[ext_resource type="Texture2D" uid="uid://finck57ucrs8" path="res://Player/Guns/Sword/Sword6.tres" id="3_ty4fm"]
+[ext_resource type="Texture2D" uid="uid://dlpapixnlrh8l" path="res://Player/Guns/Sword/Sword7.tres" id="4_qjcch"]
+[ext_resource type="Texture2D" uid="uid://bdpyu0w8qro8a" path="res://Player/Guns/Sword/Sword8.tres" id="5_0p12n"]
+[ext_resource type="Texture2D" uid="uid://bccn5kgmnuvpd" path="res://Player/Guns/Sword/Sword9.tres" id="6_rxpn6"]
+[ext_resource type="Texture2D" uid="uid://dsuxsfdastujp" path="res://Player/Guns/Sword/Sword4.tres" id="7_fw3xp"]
+[ext_resource type="Texture2D" uid="uid://djmsv727qxf80" path="res://Player/Guns/Sword/Sword3.tres" id="8_0ev1r"]
+[ext_resource type="Texture2D" uid="uid://b5smijnyylfim" path="res://Player/Guns/Sword/Sword2.tres" id="9_kma1u"]
+[ext_resource type="Texture2D" uid="uid://difg3cg4jvu4q" path="res://Player/Guns/Sword/Sword1.tres" id="10_v0qt7"]
+[ext_resource type="Texture2D" uid="uid://dsetbbemu8osw" path="res://Player/Guns/Sword/Sword0.tres" id="11_7bu0i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ttcif"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_14odu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ty4fm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qjcch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0p12n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rxpn6")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fw3xp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0ev1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kma1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v0qt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_7bu0i")
+}],
+"loop": false,
+"name": &"hide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_14odu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_7bu0i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v0qt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_kma1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0ev1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fw3xp")
+}],
+"loop": false,
+"name": &"show",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixs56"]
+
+[node name="Sword" type="Node3D"]
+script = ExtResource("1_onsri")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ttcif")
+animation = &"attack"
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.01267)
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 1.01101)
+shape = SubResource("BoxShape3D_ixs56")
+
+[connection signal="animation_changed" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_changed"]
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_looped"]

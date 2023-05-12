@@ -12,7 +12,7 @@ config_version=5
 
 config/name="PropaGUNda"
 config/description="A first person shooter, where less is more! Specifically Less Health is More Power and Less Space is More Mobs. Less Shots More Damage. Run, change weapons, find your way out in a rogue-like shooter for Go Godot Jam 2023"
-run/main_scene="res://Levels/Main/L_Main.tscn"
+run/main_scene="res://Levels/L_Main.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.png"
 

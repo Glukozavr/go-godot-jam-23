@@ -1,6 +1,11 @@
 extends Node3D
 
+signal on_ammo_update
+
 @export var bullet_scene: PackedScene
+@export var ammo:= 100
+@export var load:= 5
+@export var current_load:= 5
 @export var speed:= 2
 @export var idle_anim:= "idle"
 @export var show_anim:= "show"
@@ -30,8 +35,13 @@ func play_reload():
 func play_shoot():
 	if not is_ready_to_shoot:
 		return
-	if play_anim(shoot_anim):
-		shoot_bullet()
+	if current_load <= 0 and ammo > 0:
+		play_reload()
+	else:
+		if current_load > 0 and play_anim(shoot_anim):
+			current_load = current_load - 1
+			on_ammo_update.emit(ammo, current_load, load)
+			shoot_bullet()
 
 func play_anim(anim_name):
 	if is_busy:
@@ -57,4 +67,12 @@ func _on_animation_player_animation_finished(anim_name):
 		is_busy = false
 	if anim_name == show_anim or anim_name == reload_anim:
 		is_ready_to_shoot = true
+	if anim_name == reload_anim:
+		var new_load = load
+		if ammo - new_load < 0:
+			new_load = ammo
+		ammo = ammo - new_load
+			
+		current_load = new_load
+		on_ammo_update.emit(ammo, current_load, load)
 		

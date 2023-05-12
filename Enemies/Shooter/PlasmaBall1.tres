@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://trf6rbfqbggr"]
+
+[ext_resource type="Texture2D" uid="uid://dpofaj7ynwve4" path="res://Enemies/Shooter/PlasmaBall.png" id="1_yi68x"]
+
+[resource]
+atlas = ExtResource("1_yi68x")
+region = Rect2(62, 10, 32, 32)

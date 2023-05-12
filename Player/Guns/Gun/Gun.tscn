@@ -1,0 +1,153 @@
+[gd_scene load_steps=13 format=3 uid="uid://bheko5y0w6pgp"]
+
+[ext_resource type="Script" path="res://Player/Gun.gd" id="1_btgor"]
+[ext_resource type="PackedScene" uid="uid://dlxyhih3kdmlv" path="res://Player/Guns/Gun/Bullet.tscn" id="2_wtf38"]
+[ext_resource type="Texture2D" uid="uid://d2xk5ys7xcbxh" path="res://Player/Guns/Gun/Gun.png" id="3_25nqa"]
+[ext_resource type="Texture2D" uid="uid://cys8b57akn7vo" path="res://Player/Guns/Gun/aim.png" id="4_tvss4"]
+
+[sub_resource type="Animation" id="Animation_as5co"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ldnrf"]
+resource_name = "hide"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_w374k"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_itge8"]
+resource_name = "reload"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="Animation" id="Animation_14ms6"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 5]
+}
+
+[sub_resource type="Animation" id="Animation_kkhpf"]
+resource_name = "show"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fop7h"]
+_data = {
+"RESET": SubResource("Animation_as5co"),
+"hide": SubResource("Animation_ldnrf"),
+"idle": SubResource("Animation_w374k"),
+"reload": SubResource("Animation_itge8"),
+"shoot": SubResource("Animation_14ms6"),
+"show": SubResource("Animation_kkhpf")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_u2kl4"]
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_btgor")
+bullet_scene = ExtResource("2_wtf38")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = ExtResource("3_25nqa")
+hframes = 5
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fop7h")
+}
+
+[node name="Aim" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.0152084)
+
+[node name="Sprite3D" type="Sprite3D" parent="Aim"]
+billboard = 1
+texture = ExtResource("4_tvss4")
+
+[node name="LaunchMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.420416)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchMarker"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_u2kl4")
+
+[node name="DirectionMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.840832)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DirectionMarker"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_u2kl4")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

@@ -1,19 +1,34 @@
 extends Node3D
 
+signal ammo_update
 
 @export_node_path("Camera3D") var cam_path := NodePath("Camera")
 @onready var cam: Camera3D = get_node(cam_path)
 
 @export var mouse_sensitivity := 2.0
 @export var y_limit := 90.0
+@export var weapon: Node3D
 var mouse_axis := Vector2()
 var rot := Vector3()
 
 func _process(delta):
 	if Input.is_action_pressed("fire"):
 		# Check for bullets, but genuinly shoot
-		$Guns/Gun.play_shoot()
+		print("Attack is in order")
+		weapon.play_shoot()
 
+func get_ammo():
+	if weapon:
+		return weapon.ammo
+	return 0
+func get_current_load():
+	if weapon:
+		return weapon.current_load
+	return 0
+func get_load():
+	if weapon:
+		return weapon.load
+	return 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,4 +64,9 @@ func camera_rotation() -> void:
 
 
 func _on_start_timer_timeout():
-	$Guns/Gun.play_show()
+	if weapon:
+		weapon.play_show()
+
+
+func _on_gun_on_ammo_update(ammo, current_load, load):
+	ammo_update.emit(ammo, current_load, load)
