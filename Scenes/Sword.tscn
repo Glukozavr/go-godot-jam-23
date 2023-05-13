@@ -90,10 +90,13 @@ animations = [{
 
 [node name="Sword" type="Node3D"]
 script = ExtResource("1_ounta")
+type = "sword"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ttcif")
 animation = &"attack"
+frame = 5
+frame_progress = 1.0
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.01267)

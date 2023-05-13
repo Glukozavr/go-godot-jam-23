@@ -36,7 +36,7 @@ func _physics_process(delta):
 			queue_free()
 		else:
 			if debug:
-				print_debug("A Bullet with d = ", damage, " and speed = ", speed, " destoryed on obstacle!")
+				print_debug("A Bullet with d = ", damage, " and speed = ", speed, " destoryed on obstacle!", collision.get_collider())
 			queue_free()
 			
 	

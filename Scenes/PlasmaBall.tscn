@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmxtmwiu1c6x0"]
+
+[ext_resource type="Script" path="res://Code/Bullet.gd" id="1_edqyy"]
+[ext_resource type="Texture2D" uid="uid://drxyikyjm55no" path="res://Assets/Weapons/Plasma/Plasma-Ball-0.png" id="2_juj7x"]
+[ext_resource type="Texture2D" uid="uid://uba0awyhva46" path="res://Assets/Weapons/Plasma/Plasma-Ball-1.png" id="3_4kolm"]
+[ext_resource type="Texture2D" uid="uid://b4lkhvrfpedc0" path="res://Assets/Weapons/Plasma/Plasma-Ball-2.png" id="4_gpjxj"]
+[ext_resource type="Texture2D" uid="uid://c8d5wre4ux3tp" path="res://Assets/Weapons/Plasma/Plasma-Ball-3.png" id="5_q85tw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8d5uh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dm6gb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_juj7x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4kolm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gpjxj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q85tw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="PlasmaBall" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_edqyy")
+speed = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_8d5uh")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_dm6gb")
+frame = 2
+frame_progress = 0.0456744
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

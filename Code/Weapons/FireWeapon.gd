@@ -12,12 +12,17 @@ func play_show():
 	super.play_show()
 
 func play_reload():
+	if debug:
+		print_debug("Weapon ", type, " reloads")
 	_play_anim(reload_anim)
 
 func _update_ammo():
+	if debug:
+		print_debug("Weapon ", type, " updates ammo", bullets, bullets_total)
 	on_ammo_update.emit(bullets, bullets_total)
 
 func _can_attack():
+	super._can_attack()
 	var is_empty = bullets <= 0
 	if is_empty:
 		play_reload()
@@ -26,11 +31,14 @@ func _can_attack():
 		return true
 
 func _deliver_damager():
+	super._deliver_damager()
 	bullets = bullets - 1
 	_update_ammo()
 	_send_bullet()
 	
 func _send_bullet():
+	if debug:
+		print_debug("Weapon ", type, " sending a bullet")
 	var bullet = bullet_scene.instantiate()
 	bullet.fly_from_to(to_global($LaunchMarker.position), to_global($DirectionMarker.position))
 	get_tree().current_scene.add_child(bullet)

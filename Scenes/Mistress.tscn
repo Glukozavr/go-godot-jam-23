@@ -1,0 +1,125 @@
+[gd_scene load_steps=19 format=3 uid="uid://qlihxlbvpk8u"]
+
+[ext_resource type="Script" path="res://Code/Enemies/Shooter.gd" id="1_yk0vy"]
+[ext_resource type="PackedScene" uid="uid://bqufoe57iv1bm" path="res://Scenes/Strike.tscn" id="2_bhmey"]
+[ext_resource type="Texture2D" uid="uid://burs7jihnlaew" path="res://Assets/Enemies/Mistress/MistressDie1.png" id="3_w0hho"]
+[ext_resource type="Texture2D" uid="uid://7wj008r8l87o" path="res://Assets/Enemies/Mistress/MistressDie2.png" id="4_k8uh7"]
+[ext_resource type="Texture2D" uid="uid://dmptceknv5pdj" path="res://Assets/Enemies/Mistress/MistressDie3.png" id="5_6b1qp"]
+[ext_resource type="Texture2D" uid="uid://jm7xwurdg3x1" path="res://Assets/Enemies/Mistress/MistressIdle.png" id="6_1jm3m"]
+[ext_resource type="Texture2D" uid="uid://c4w3g675l48v8" path="res://Assets/Enemies/Mistress/MistressAttack1.png" id="7_uowr7"]
+[ext_resource type="Texture2D" uid="uid://bc5frio1y2lch" path="res://Assets/Enemies/Mistress/MistressAttack2.png" id="8_cvs54"]
+[ext_resource type="Texture2D" uid="uid://blt6imtlb0207" path="res://Assets/Enemies/Mistress/MistressAttack3.png" id="9_5qidd"]
+[ext_resource type="Texture2D" uid="uid://qfdknti8m432" path="res://Assets/Enemies/Mistress/MistressAttack4.png" id="10_hutan"]
+[ext_resource type="Texture2D" uid="uid://c2gdxaexohft3" path="res://Assets/Enemies/Mistress/MistressWalk0.png" id="11_cm4h5"]
+[ext_resource type="Texture2D" uid="uid://c1qx465jjx55j" path="res://Assets/Enemies/Mistress/MistressWalk1.png" id="12_c5u6j"]
+[ext_resource type="Texture2D" uid="uid://shb5j0r6pv1f" path="res://Assets/Enemies/Mistress/MistressWalk2.png" id="13_y541g"]
+[ext_resource type="Texture2D" uid="uid://b7ka4qcbjbtqu" path="res://Assets/Enemies/Mistress/MistressWalk3.png" id="14_1m8kj"]
+[ext_resource type="Texture2D" uid="uid://bbc2lulu15u4i" path="res://Assets/Enemies/Mistress/MistressWalk4.png" id="15_e3jp2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4xuku"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cbtah"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_uowr7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cvs54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5qidd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hutan")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5qidd")
+}, {
+"duration": 3.0,
+"texture": ExtResource("6_1jm3m")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w0hho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_k8uh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6b1qp")
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1jm3m")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_cm4h5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_c5u6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_y541g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_1m8kj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_e3jp2")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jhqvh"]
+
+[node name="Mistress" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_yk0vy")
+bullet_scene = ExtResource("2_bhmey")
+health = 100
+speed = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.21794, 0, 0, 0, 1.74554, 0, 0, 0, 1.24663, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_4xuku")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_cbtah")
+animation = &"attack"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(7.124, 0, 0, 0, 3.38403, 0, 0, 0, 8, 0, 0, 0)
+shape = SubResource("BoxShape3D_jhqvh")
+
+[node name="LaunchMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125246, 0.375727, -1.41525)
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_looped"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

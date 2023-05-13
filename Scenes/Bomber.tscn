@@ -1,0 +1,103 @@
+[gd_scene load_steps=16 format=3 uid="uid://fqmvck0ndovu"]
+
+[ext_resource type="Script" path="res://Code/Enemies/Bomber.gd" id="1_ft8np"]
+[ext_resource type="Texture2D" uid="uid://dii8usqtseumj" path="res://Assets/Enemies/Bomber/Bomber-Fly-0.png" id="2_mglkt"]
+[ext_resource type="Texture2D" uid="uid://bacr3viip0jio" path="res://Assets/Enemies/Explosion/Explosion-0.png" id="2_qe3uj"]
+[ext_resource type="Texture2D" uid="uid://cfh04e5w2n25b" path="res://Assets/Enemies/Explosion/Explosion-1.png" id="3_q3v7n"]
+[ext_resource type="Texture2D" uid="uid://bebmn5c7eaey1" path="res://Assets/Enemies/Bomber/Bomber-Fly-1.png" id="3_r20qd"]
+[ext_resource type="Texture2D" uid="uid://cuk0b71diobxf" path="res://Assets/Enemies/Explosion/Explosion-2.png" id="4_h0qvp"]
+[ext_resource type="Texture2D" uid="uid://blr7y5c1m160o" path="res://Assets/Enemies/Bomber/Bomber-Fly-2.png" id="4_jslrl"]
+[ext_resource type="Texture2D" uid="uid://b3nw7alv2o5yk" path="res://Assets/Enemies/Explosion/Explosion-3.png" id="5_1wl3q"]
+[ext_resource type="Texture2D" uid="uid://v4o1c1i1biom" path="res://Assets/Enemies/Bomber/Bomber-Fly-3.png" id="5_c0dhk"]
+[ext_resource type="Texture2D" uid="uid://dt2u8i8ud63f" path="res://Assets/Enemies/Explosion/Explosion-4.png" id="6_6xyfe"]
+[ext_resource type="Texture2D" uid="uid://cw4d7yqjc16i5" path="res://Assets/Enemies/Bomber/Bomber-Fly-4.png" id="6_y0pm4"]
+[ext_resource type="Texture2D" uid="uid://b5k8lmkj0knx0" path="res://Assets/Enemies/Explosion/Explosion-5.png" id="7_el74v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ta0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qe3uj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q3v7n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h0qvp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1wl3q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6xyfe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_el74v")
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mglkt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_r20qd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jslrl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_c0dhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y0pm4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xcwj5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ua7pg"]
+
+[node name="Bomber" type="CharacterBody3D" groups=["Enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.489969)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_ft8np")
+health = 20
+is_flying = true
+fly_height = 2
+anim_walk = "idle"
+anim_attack = "idle"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_1ta0l")
+animation = &"die"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
+shape = SubResource("SphereShape3D_xcwj5")
+
+[node name="FloorRayCast" type="RayCast3D" parent="."]
+target_position = Vector3(0, -4, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("BoxShape3D_ua7pg")
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

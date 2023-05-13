@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://culkmqryrdyio"]
+
+[ext_resource type="Script" path="res://Code/Player/Player.gd" id="2_b612r"]
+[ext_resource type="PackedScene" uid="uid://cg42wynhj748b" path="res://Scenes/Head.tscn" id="3_5xqi4"]
+[ext_resource type="PackedScene" uid="uid://cnmnja2rhsmka" path="res://Scenes/GUI.tscn" id="4_a36hr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2270k"]
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("2_b612r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2270k")
+
+[node name="Head" parent="." instance=ExtResource("3_5xqi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0.276223)
+
+[node name="GUI" parent="." instance=ExtResource("4_a36hr")]
+
+[connection signal="ammo_update" from="Head" to="." method="_on_head_ammo_update"]

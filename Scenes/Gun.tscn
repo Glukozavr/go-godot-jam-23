@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgtyxoatsoqhb"]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://Code/Weapons/FireWeapon.gd" id="1_8imo0"]
+[ext_resource type="PackedScene" uid="uid://ifbix6aew7ca" path="res://Scenes/Bullet.tscn" id="2_82fbb"]
 [ext_resource type="Texture2D" uid="uid://yuxv607o62lh" path="res://Assets/Weapons/Gun/Gun-Attack-0.png" id="2_jfygx"]
 [ext_resource type="Texture2D" uid="uid://speepiv6epuv" path="res://Assets/Weapons/Gun/Gun-Attack-1.png" id="3_ikv2g"]
 [ext_resource type="Texture2D" uid="uid://b72pfhj06qkle" path="res://Assets/Weapons/Gun/Gun-Attack-2.png" id="4_h1v1y"]
@@ -13,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c0jiev44g04or" path="res://Assets/Weapons/Gun/Gun-Reload-2.png" id="11_g74kx"]
 [ext_resource type="Texture2D" uid="uid://ckevbly2sb38l" path="res://Assets/Weapons/Gun/Gun-Reload-3.png" id="12_b2ude"]
 [ext_resource type="Texture2D" uid="uid://bpg5mfp0xsrm3" path="res://Assets/Weapons/Gun/Gun-Reload-4.png" id="13_oegiv"]
-[ext_resource type="Texture2D" uid="uid://cys8b57akn7vo" path="res://Assets/Weapons/aim.png" id="14_ood75"]
+[ext_resource type="Texture2D" uid="uid://cys8b57akn7vo" path="res://Assets/Weapons/Aim.png" id="14_ood75"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j0cym"]
 animations = [{
@@ -30,7 +31,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_jfygx")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -47,7 +48,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("8_jfjnj")
 }],
-"loop": true,
+"loop": false,
 "name": &"hide",
 "speed": 10.0
 }, {
@@ -75,7 +76,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("13_oegiv")
 }],
-"loop": true,
+"loop": false,
 "name": &"reload",
 "speed": 10.0
 }, {
@@ -92,7 +93,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("5_lhkx2")
 }],
-"loop": true,
+"loop": false,
 "name": &"show",
 "speed": 10.0
 }]
@@ -101,10 +102,14 @@ animations = [{
 
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_8imo0")
+bullet_scene = ExtResource("2_82fbb")
+type = "gun"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_j0cym")
-animation = &"idle"
+animation = &"show"
+frame = 3
+frame_progress = 1.0
 
 [node name="Aim" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.0152084)

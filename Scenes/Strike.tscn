@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqufoe57iv1bm"]
+
+[ext_resource type="Script" path="res://Code/Bullet.gd" id="1_0kipv"]
+[ext_resource type="Texture2D" uid="uid://dgcd06hb2vdd2" path="res://Assets/Weapons/Strike.png" id="2_317mm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_owsd2"]
+
+[node name="Strike" type="CharacterBody3D"]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_0kipv")
+damage = 50
+speed = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-2.62268e-08, -0.6, 0, 0.6, -2.62268e-08, 0, 0, 0, 0.6, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_owsd2")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("2_317mm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

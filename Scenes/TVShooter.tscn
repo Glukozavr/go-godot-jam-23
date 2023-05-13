@@ -1,0 +1,124 @@
+[gd_scene load_steps=19 format=3 uid="uid://drla58xyy6wgy"]
+
+[ext_resource type="Script" path="res://Code/Enemies/Shooter.gd" id="1_pa6h3"]
+[ext_resource type="PackedScene" uid="uid://cmxtmwiu1c6x0" path="res://Scenes/PlasmaBall.tscn" id="2_u1xxb"]
+[ext_resource type="Texture2D" uid="uid://dgqncmtpi3jka" path="res://Assets/Enemies/Shooter/Shooter_Shoot_0.png" id="3_r0jc2"]
+[ext_resource type="Texture2D" uid="uid://dekw6sdpws15q" path="res://Assets/Enemies/Shooter/Shooter_Shoot_1.png" id="4_p3q0q"]
+[ext_resource type="Texture2D" uid="uid://dmphh2cvxlpgm" path="res://Assets/Enemies/Shooter/Shooter_Die_0.png" id="5_tp331"]
+[ext_resource type="Texture2D" uid="uid://cu0j0nvw2xjn2" path="res://Assets/Enemies/Shooter/Shooter_Die_1.png" id="6_m23t3"]
+[ext_resource type="Texture2D" uid="uid://cchlloi848e6s" path="res://Assets/Enemies/Shooter/Shooter_Die_2.png" id="7_3fpen"]
+[ext_resource type="Texture2D" uid="uid://7q2fdhtbtcu1" path="res://Assets/Enemies/Shooter/Shooter_Die_3.png" id="8_av1q5"]
+[ext_resource type="Texture2D" uid="uid://c86ryt8d05j4u" path="res://Assets/Enemies/Shooter/Shooter_Idle.png" id="9_y874a"]
+[ext_resource type="Texture2D" uid="uid://c1j1jgqyx5il0" path="res://Assets/Enemies/Shooter/Shooter_Walk_0.png" id="10_csvjs"]
+[ext_resource type="Texture2D" uid="uid://do365ecjn3bjh" path="res://Assets/Enemies/Shooter/Shooter_Walk_1.png" id="11_b23cp"]
+[ext_resource type="Texture2D" uid="uid://5lwo7bsr7e2x" path="res://Assets/Enemies/Shooter/Shooter_Walk_2.png" id="12_5hlen"]
+[ext_resource type="Texture2D" uid="uid://dyqaly7wyscxq" path="res://Assets/Enemies/Shooter/Shooter_Walk_3.png" id="13_73fds"]
+[ext_resource type="Texture2D" uid="uid://rckbuupmmcg4" path="res://Assets/Enemies/Shooter/Shooter_Walk_4.png" id="14_3vc34"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lr5rh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_we1t3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_r0jc2")
+}, {
+"duration": 2.0,
+"texture": ExtResource("4_p3q0q")
+}, {
+"duration": 3.0,
+"texture": ExtResource("3_r0jc2")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tp331")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_m23t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3fpen")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_av1q5")
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_y874a")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_csvjs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_b23cp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_5hlen")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_73fds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_3vc34")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nar8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c7ego"]
+
+[node name="TVShooter" type="CharacterBody3D" groups=["Enemies"]]
+collision_layer = 4
+collision_mask = 15
+script = ExtResource("1_pa6h3")
+bullet_scene = ExtResource("2_u1xxb")
+health = 80
+speed = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.8, 0, 0, 0, 1.2, 0.000149727, 0, 0)
+shape = SubResource("CapsuleShape3D_lr5rh")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_we1t3")
+animation = &"attack"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(16.0316, 0, 0, 0, 1, 0, 0, 0, 14.0526, 0, 0, 0)
+shape = SubResource("BoxShape3D_6nar8")
+
+[node name="LaunchMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.459971, 0.700951, -0.784148)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchMarker"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_c7ego")
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

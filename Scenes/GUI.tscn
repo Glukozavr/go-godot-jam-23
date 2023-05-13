@@ -1,0 +1,208 @@
+[gd_scene load_steps=13 format=3 uid="uid://cnmnja2rhsmka"]
+
+[ext_resource type="Script" path="res://Code/GUI/GUI.gd" id="1_508qe"]
+[ext_resource type="Texture2D" uid="uid://xqoug0lxwr5t" path="res://Assets/GUI/HP-0.png" id="1_tmk81"]
+[ext_resource type="Texture2D" uid="uid://cxabgha7ld6xf" path="res://Assets/GUI/AMMO-0.png" id="1_yg1tx"]
+[ext_resource type="Texture2D" uid="uid://c8dbhvek0aj13" path="res://Assets/GUI/AMMO-1.png" id="2_4afrc"]
+[ext_resource type="Texture2D" uid="uid://dbhxn7tl1wwce" path="res://Assets/GUI/AMMO-2.png" id="3_2f4t2"]
+[ext_resource type="Texture2D" uid="uid://dt0ybe8qh0e12" path="res://Assets/GUI/HP-2.png" id="3_8ms4d"]
+[ext_resource type="Texture2D" uid="uid://djuevnjhxxpb5" path="res://Assets/GUI/HP-3.png" id="4_ww1ni"]
+[ext_resource type="Texture2D" uid="uid://cksxky5m2yars" path="res://Assets/GUI/DamageFull.png" id="10_16px7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gat1r"]
+font_size = 50
+
+[sub_resource type="Animation" id="Animation_ld7yb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageIndicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ulp3t"]
+resource_name = "damage"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageIndicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0.54902), Color(1, 1, 1, 0.313726), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dhbqx"]
+_data = {
+"RESET": SubResource("Animation_ld7yb"),
+"damage": SubResource("Animation_ulp3t")
+}
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_508qe")
+hearts_imgs = Array[Texture2D]([ExtResource("1_tmk81"), ExtResource("3_8ms4d"), ExtResource("4_ww1ni")])
+bullets_imgs = Array[Texture2D]([ExtResource("1_yg1tx"), ExtResource("2_4afrc"), ExtResource("3_2f4t2")])
+
+[node name="PickUp" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="PickUp"]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 240.0
+offset_right = 608.0
+offset_bottom = 312.0
+text = "E"
+label_settings = SubResource("LabelSettings_gat1r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PickUp"]
+layout_mode = 0
+offset_left = 552.0
+offset_top = 312.0
+offset_right = 624.0
+offset_bottom = 338.0
+text = "to pickup"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DamageIndicator" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("10_16px7")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dhbqx")
+}
+
+[node name="Health" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 450.0
+offset_bottom = 136.0
+grow_vertical = 0
+
+[node name="Heart-1" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_right = 87.4286
+offset_bottom = 136.0
+texture = ExtResource("4_ww1ni")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Heart-2" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 90.0
+offset_right = 177.429
+offset_bottom = 136.0
+texture = ExtResource("4_ww1ni")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Heart-3" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 180.0
+offset_right = 267.429
+offset_bottom = 136.0
+texture = ExtResource("4_ww1ni")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Heart-4" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 270.0
+offset_right = 357.429
+offset_bottom = 136.0
+texture = ExtResource("4_ww1ni")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Heart-5" type="TextureRect" parent="Health"]
+layout_mode = 0
+offset_left = 360.0
+offset_right = 447.429
+offset_bottom = 136.0
+texture = ExtResource("4_ww1ni")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Ammo" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 702.0
+offset_right = 1152.0
+offset_bottom = 136.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Bullet-1" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 360.0
+offset_right = 444.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-2" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 270.0
+offset_right = 354.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-3" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 180.0
+offset_right = 264.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-4" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 90.0
+offset_right = 174.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-5" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_right = 84.2143
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4

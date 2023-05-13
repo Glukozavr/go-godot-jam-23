@@ -8,24 +8,34 @@ signal on_shown
 
 @export var anim_speed_multiplier:= 1
 
+@export var type:= "generic"
 @export var idle_anim:= "idle"
 @export var show_anim:= "show"
 @export var hide_anim:= "hide"
 @export var attack_anim:= "attack"
+@export var debug:= false
 
 var is_busy:= false
 var is_ready_to_shoot:= false
 
 func play_idle():
+	if debug:
+		print_debug("Weapon ", type, " requested to Idle")
 	_play_anim(idle_anim)
 	
 func play_show():
+	if debug:
+		print_debug("Weapon ", type, " requested to Show")
 	_play_anim(show_anim)
 	
 func play_hide():
+	if debug:
+		print_debug("Weapon ", type, " requested to Hide")
 	_play_anim(hide_anim)
 	
 func play_attack():
+	if debug:
+		print_debug("Weapon ", type, " requested to Attack")
 	if not is_ready_to_shoot:
 		return
 	else:
@@ -33,6 +43,8 @@ func play_attack():
 			_deliver_damager()
 
 func _can_attack():
+	if debug:
+		print_debug("Weapon ", type, " check for attack")
 	return true
 
 func _play_anim(anim_name):
@@ -42,9 +54,12 @@ func _play_anim(anim_name):
 	return true
 
 func _deliver_damager():
-	pass
+	if debug:
+		print_debug("Weapon ", type, " delivering damage")
 	
 func _update_ammo():
+	if debug:
+		print_debug("Weapon ", type, " updating on ammo")
 	on_ammo_update.emit(-1)
 
 func _on_animated_sprite_3d_animation_changed():
