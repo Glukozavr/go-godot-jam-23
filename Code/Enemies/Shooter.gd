@@ -19,3 +19,5 @@ func _on_animated_sprite_3d_animation_finished():
 	if is_dead:
 		return
 
+func _on_animated_sprite_3d_animation_looped():
+	pass # Replace with function body.

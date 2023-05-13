@@ -83,7 +83,7 @@ animations = [{
 
 [sub_resource type="SphereMesh" id="SphereMesh_c7ego"]
 
-[node name="TVShooter" type="CharacterBody3D" groups=["Enemies"]]
+[node name="Shooter" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_pa6h3")
@@ -119,6 +119,7 @@ mesh = SubResource("SphereMesh_c7ego")
 [node name="DeathTimer" type="Timer" parent="."]
 
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
+[connection signal="animation_looped" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_looped"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

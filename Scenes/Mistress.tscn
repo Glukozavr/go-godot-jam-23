@@ -88,7 +88,7 @@ animations = [{
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jhqvh"]
 
-[node name="Mistress" type="CharacterBody3D"]
+[node name="Mistress" type="CharacterBody3D" groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_yk0vy")

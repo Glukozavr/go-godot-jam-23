@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://beegns7yxj6cl"]
+[gd_scene load_steps=13 format=3 uid="uid://beegns7yxj6cl"]
 
 [ext_resource type="Script" path="res://Code/InputHandler.gd" id="1_vbdxq"]
 [ext_resource type="PackedScene" uid="uid://dpcuoisgam45x" path="res://Levels/Geometry/Floor.tscn" id="1_yb0tt"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://chj2w2613jd1u" path="res://Scenes/GunItem.tscn" id="5_ux3l7"]
 [ext_resource type="PackedScene" uid="uid://culkmqryrdyio" path="res://Scenes/Player.tscn" id="6_yirec"]
 [ext_resource type="PackedScene" uid="uid://fqmvck0ndovu" path="res://Scenes/Bomber.tscn" id="7_fbidw"]
+[ext_resource type="PackedScene" uid="uid://qlihxlbvpk8u" path="res://Scenes/Mistress.tscn" id="8_n2nex"]
+[ext_resource type="PackedScene" uid="uid://drla58xyy6wgy" path="res://Scenes/Shooter.tscn" id="9_0lbmh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ggqlx"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -63,3 +65,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59091, 0)
 
 [node name="Bomber" parent="." instance=ExtResource("7_fbidw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33445, 13.4221)
+
+[node name="Mistress" parent="." instance=ExtResource("8_n2nex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9803, 2.99041, 0)
+
+[node name="Shooter" parent="." instance=ExtResource("9_0lbmh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16819, -16.6864)

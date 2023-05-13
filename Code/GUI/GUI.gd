@@ -4,6 +4,7 @@ var hearts: Array[Node]
 @export var hearts_imgs: Array[Texture2D]
 var bullets: Array[Node]
 @export var bullets_imgs: Array[Texture2D]
+@export var debug = false
 
 @export var anim_damage = "damage"
 @export var anim_damage_speed = 2
@@ -27,7 +28,8 @@ func _do_math(items, items_imgs, points, total_points):
 	var actual_parts = (items_imgs.size() - 1)
 	var fraction: float = float(points) / float(total_points) * (float(items.size()) * float(actual_parts))
 	var actual_points = int(round(fraction))
-	print("So, ", points, " from ", total_points, " is ", actual_points)
+	if debug:
+		print_debug("So, ", points, " from ", total_points, " is ", actual_points)
 	for index in items.size():
 		var item = items[index]
 		var item_index
@@ -37,7 +39,8 @@ func _do_math(items, items_imgs, points, total_points):
 			item_index = actual_parts
 		else:
 			item_index = 0
-		print("So, for ", index, " we have ", item_index)
+		if debug:
+			print_debug("So, for ", index, " we have ", item_index)
 		item.texture = items_imgs[item_index]
 
 func show_pickup_tip():

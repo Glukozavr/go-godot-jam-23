@@ -14,6 +14,7 @@ class_name EnemyMovement
 @export var anim_walk = "walk"
 @export var anim_attack = "attack"
 @export var anim_die = "die"
+@export var debug = false
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -25,15 +26,18 @@ func _ready():
 	$AnimatedSprite3D.play(anim_idle)
 
 # This function will be called from the Main scene.
-func follow(node: Node3D, position: Vector3):
+func follow(node: Node3D, pos: Vector3):
 	if is_dead:
 		return false
+	
+	if debug:
+		print_debug("Enemy ", self, " is following", node, " from ", pos)
 	
 	is_following = true
 	target = node
 	# We position the mob by placing it at start_position
 	# and rotate it towards player_position, so it looks at the player.
-	look_at_from_position(position, target.position, Vector3.UP)
+	look_at_from_position(pos, target.position, Vector3.UP)
 	# We calculate a forward velocity that represents the speed.
 	return true
 
@@ -114,8 +118,12 @@ func _on_animated_sprite_3d_animation_finished():
 		return
 
 func _die():
+	if debug:
+		print("Enemy ", self, " is startig the timer to die")
 	is_dead = true
 	$DeathTimer.start()
 
 func _on_death_timer_timeout():
+	if debug:
+		print("Enemy ", self, " is dissapearing")
 	queue_free()

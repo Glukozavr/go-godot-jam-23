@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bvu5yko3vu71r"]
+
+[node name="WallBrick" type="MeshInstance3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
