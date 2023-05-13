@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://xnwk6l00f1i6"]
+
+[ext_resource type="Script" path="res://Code/Item.gd" id="1_34k67"]
+[ext_resource type="Texture2D" uid="uid://bv7hpciom0k1c" path="res://Assets/Items/Weapons/Sword/Sword-Item-0.png" id="2_c0aca"]
+[ext_resource type="Texture2D" uid="uid://dvduk24m6tbv7" path="res://Assets/Items/Weapons/Sword/Sword-Item-1.png" id="3_3vde7"]
+[ext_resource type="Texture2D" uid="uid://cgpaf1pc3s13d" path="res://Assets/Items/Weapons/Sword/Sword-Item-2.png" id="4_vkce4"]
+[ext_resource type="Texture2D" uid="uid://bqyi13kcoknkf" path="res://Assets/Items/Weapons/Sword/Sword-Item-3.png" id="5_2to4c"]
+[ext_resource type="Texture2D" uid="uid://dn61axm25tbec" path="res://Assets/Items/Weapons/Sword/Sword-Item-4.png" id="6_wejn4"]
+[ext_resource type="Texture2D" uid="uid://djevhr57b5lyl" path="res://Assets/Items/Weapons/Sword/Sword-Item-5.png" id="7_0k6yg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ak3ol"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c0aca")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3vde7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vkce4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2to4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wejn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0k6yg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7fa2x"]
+
+[node name="SwordItem" type="Node3D" groups=["Items"]]
+script = ExtResource("1_34k67")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_ak3ol")
+frame = 2
+frame_progress = 0.239188
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2.07813, 0, 0, 0, 1.46166, 0, 0, 0, 2.25031, 0, 0, 0)
+shape = SubResource("BoxShape3D_7fa2x")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

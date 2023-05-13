@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://chj2w2613jd1u"]
+
+[ext_resource type="Script" path="res://Code/Item.gd" id="1_g7ww2"]
+[ext_resource type="Texture2D" uid="uid://bssa1he5rytsn" path="res://Assets/Items/Weapons/Gun/Gun-Item-0.png" id="2_xhoit"]
+[ext_resource type="Texture2D" uid="uid://1vc2seepw0qa" path="res://Assets/Items/Weapons/Gun/Gun-Item-1.png" id="3_1tify"]
+[ext_resource type="Texture2D" uid="uid://6x8ok2xeufkd" path="res://Assets/Items/Weapons/Gun/Gun-Item-2.png" id="4_0biyv"]
+[ext_resource type="Texture2D" uid="uid://vuyewhw4o83l" path="res://Assets/Items/Weapons/Gun/Gun-Item-3.png" id="5_2fiy4"]
+[ext_resource type="Texture2D" uid="uid://dd64q24n5oq2q" path="res://Assets/Items/Weapons/Gun/Gun-Item-4.png" id="6_y45qj"]
+[ext_resource type="Texture2D" uid="uid://c8sqtdiq0volx" path="res://Assets/Items/Weapons/Gun/Gun-Item-5.png" id="7_qhmfb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_881dk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xhoit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1tify")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0biyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2fiy4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y45qj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_qhmfb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pbf7"]
+
+[node name="GunItem" type="Node3D"]
+script = ExtResource("1_g7ww2")
+type = "gun"
+description = "Fire weapon"
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_881dk")
+frame = 4
+frame_progress = 0.0681497
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2.07813, 0, 0, 0, 1.46166, 0, 0, 0, 2.25031, 0, 0, 0)
+shape = SubResource("BoxShape3D_7pbf7")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4jhgek8s8odq"]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Texture2D" uid="uid://vug0k56ysq8o" path="res://Enemies/Shooter/PlasmaBall0.tres" id="1_888bc"]
-[ext_resource type="Script" path="res://Player/Guns/Gun/Bullet.gd" id="1_edqyy"]
+[ext_resource type="Script" path="res://Code/Bullet.gd" id="1_edqyy"]
 [ext_resource type="Texture2D" uid="uid://trf6rbfqbggr" path="res://Enemies/Shooter/PlasmaBall1.tres" id="2_4uvud"]
 [ext_resource type="Texture2D" uid="uid://c6ih4murvav8k" path="res://Enemies/Shooter/PlasmaBall2.tres" id="3_ts0pd"]
 [ext_resource type="Texture2D" uid="uid://cm7s3facaxrb4" path="res://Enemies/Shooter/PlasmaBall3.tres" id="4_4usqb"]

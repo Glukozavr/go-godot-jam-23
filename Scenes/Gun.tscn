@@ -1,0 +1,133 @@
+[gd_scene load_steps=17 format=3 uid="uid://dgtyxoatsoqhb"]
+
+[ext_resource type="Script" path="res://Code/Weapons/FireWeapon.gd" id="1_8imo0"]
+[ext_resource type="Texture2D" uid="uid://yuxv607o62lh" path="res://Assets/Weapons/Gun/Gun-Attack-0.png" id="2_jfygx"]
+[ext_resource type="Texture2D" uid="uid://speepiv6epuv" path="res://Assets/Weapons/Gun/Gun-Attack-1.png" id="3_ikv2g"]
+[ext_resource type="Texture2D" uid="uid://b72pfhj06qkle" path="res://Assets/Weapons/Gun/Gun-Attack-2.png" id="4_h1v1y"]
+[ext_resource type="Texture2D" uid="uid://bsldbmuvw1e4v" path="res://Assets/Weapons/Gun/Gun-Show-3.png" id="5_lhkx2"]
+[ext_resource type="Texture2D" uid="uid://bnbighohspu1w" path="res://Assets/Weapons/Gun/Gun-Show-2.png" id="6_5woak"]
+[ext_resource type="Texture2D" uid="uid://ca43odxhxq2oy" path="res://Assets/Weapons/Gun/Gun-Show-1.png" id="7_cwytw"]
+[ext_resource type="Texture2D" uid="uid://d28t7l7vedqo3" path="res://Assets/Weapons/Gun/Gun-Show-0.png" id="8_jfjnj"]
+[ext_resource type="Texture2D" uid="uid://dn0a6ookdp4pj" path="res://Assets/Weapons/Gun/Gun-Reload-0.png" id="9_lrool"]
+[ext_resource type="Texture2D" uid="uid://dt6maccjd5yvl" path="res://Assets/Weapons/Gun/Gun-Reload-1.png" id="10_1wlnf"]
+[ext_resource type="Texture2D" uid="uid://c0jiev44g04or" path="res://Assets/Weapons/Gun/Gun-Reload-2.png" id="11_g74kx"]
+[ext_resource type="Texture2D" uid="uid://ckevbly2sb38l" path="res://Assets/Weapons/Gun/Gun-Reload-3.png" id="12_b2ude"]
+[ext_resource type="Texture2D" uid="uid://bpg5mfp0xsrm3" path="res://Assets/Weapons/Gun/Gun-Reload-4.png" id="13_oegiv"]
+[ext_resource type="Texture2D" uid="uid://cys8b57akn7vo" path="res://Assets/Weapons/aim.png" id="14_ood75"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j0cym"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jfygx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ikv2g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h1v1y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_jfygx")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_lhkx2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5woak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_cwytw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jfjnj")
+}],
+"loop": true,
+"name": &"hide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jfygx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_lrool")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1wlnf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_g74kx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_b2ude")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_oegiv")
+}],
+"loop": true,
+"name": &"reload",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_jfjnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_cwytw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5woak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lhkx2")
+}],
+"loop": true,
+"name": &"show",
+"speed": 10.0
+}]
+
+[sub_resource type="SphereMesh" id="SphereMesh_u2kl4"]
+
+[node name="Gun" type="Node3D"]
+script = ExtResource("1_8imo0")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j0cym")
+animation = &"idle"
+
+[node name="Aim" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.0152084)
+
+[node name="Sprite3D" type="Sprite3D" parent="Aim"]
+billboard = 1
+texture = ExtResource("14_ood75")
+
+[node name="LaunchMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.420416)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchMarker"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_u2kl4")
+
+[node name="DirectionMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.840832)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DirectionMarker"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_u2kl4")
+
+[connection signal="animation_changed" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_changed"]
+[connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
