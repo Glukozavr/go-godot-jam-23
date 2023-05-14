@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvu5yko3vu71r"]
+
+[ext_resource type="Material" uid="uid://bua2slxhkw5vm" path="res://Materials/Wall_Brick_Mat.tres" id="1_of4cm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vlqee"]
+material = ExtResource("1_of4cm")
+size = Vector3(3, 3, 1)
+
+[node name="Wall" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_vlqee")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]

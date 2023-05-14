@@ -35,9 +35,8 @@ func follow(node: Node3D, pos: Vector3):
 	
 	is_following = true
 	target = node
-	# We position the mob by placing it at start_position
-	# and rotate it towards player_position, so it looks at the player.
-	look_at_from_position(pos, target.position, Vector3.UP)
+	global_position = pos
+	look_at(target.global_position)
 	# We calculate a forward velocity that represents the speed.
 	return true
 
@@ -61,7 +60,7 @@ func _physics_process(delta):
 	if is_dead:
 		return
 	if target:
-		look_at(target.position, Vector3.UP)
+		look_at(target.global_transform.origin, Vector3.UP)
 	
 	if not _is_busy():
 		if target:
@@ -82,8 +81,10 @@ func _is_busy():
 func _seek_target():
 	if $AnimatedSprite3D.animation != anim_walk or not $AnimatedSprite3D.is_playing():
 		$AnimatedSprite3D.play(anim_walk)
-	
-	var dir = position.direction_to(target.position)
+		if $MoveSound and not $MoveSound.playing:
+			$MoveSound.play()
+
+	var dir = global_transform.origin.direction_to(target.global_position)
 	velocity.x = dir.x * speed
 	velocity.z = dir.z * speed
 
@@ -91,6 +92,8 @@ func _attack_target():
 	_wait()
 
 func _wait():
+	if $MoveSound:
+		$MoveSound.stop()
 	velocity.x = 0
 	velocity.z = 0
 	if $AnimatedSprite3D.animation != anim_idle or not $AnimatedSprite3D.is_playing():

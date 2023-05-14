@@ -2,11 +2,17 @@
 # Depends on command from ouside and collisions with objects' groups.
 extends CharacterBody3D
 
-@export var damage := 10
+@export var damage : float = 10
 @export var speed := 1
 @export var debug := false
 
+var player_vars: PlayerVariables
 var done := false
+
+func get_player_vars():
+	if not player_vars:
+		player_vars = get_node("/root/GameMehanics")
+	return player_vars
 
 # To start flight needs global start and global direction point (e.x. player position)
 func fly_from_to(start_pos, dir_pos):
@@ -28,7 +34,8 @@ func _physics_process(delta):
 			var enemy = collision.get_collider()
 			if debug:
 				print_debug("A Bullet with d = ", damage, " and speed = ", speed, " reached an enemy!")
-			enemy.receive_damage(damage)
+
+			enemy.receive_damage(damage * get_player_vars().get_revenge())
 			done = true
 			queue_free()
 		if collision.get_collider().is_in_group("Player"):

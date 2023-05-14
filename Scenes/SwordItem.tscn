@@ -38,6 +38,7 @@ animations = [{
 
 [node name="SwordItem" type="Node3D" groups=["Items"]]
 script = ExtResource("1_34k67")
+description = "A short range"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
@@ -47,7 +48,7 @@ frame_progress = 0.239188
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 16
-collision_mask = 3
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(2.07813, 0, 0, 0, 1.46166, 0, 0, 0, 2.25031, 0, 0, 0)

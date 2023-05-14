@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://culkmqryrdyio"]
+[gd_scene load_steps=8 format=3 uid="uid://culkmqryrdyio"]
 
 [ext_resource type="Script" path="res://Code/Player/Player.gd" id="2_b612r"]
 [ext_resource type="PackedScene" uid="uid://cg42wynhj748b" path="res://Scenes/Head.tscn" id="3_5xqi4"]
 [ext_resource type="PackedScene" uid="uid://cnmnja2rhsmka" path="res://Scenes/GUI.tscn" id="4_a36hr"]
+[ext_resource type="AudioStream" uid="uid://do1vaqvicurkp" path="res://Assets/Sounds/PlayerDamaged1.wav" id="4_ljnhu"]
+[ext_resource type="AudioStream" uid="uid://bu11hywuik2fm" path="res://Assets/Sounds/PlayerDeath1.wav" id="5_lqya2"]
+[ext_resource type="AudioStream" uid="uid://spu8yse1xtdr" path="res://Assets/Sounds/PlayerMovement.ogg" id="6_mcj5h"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2270k"]
 
@@ -18,5 +21,14 @@ shape = SubResource("CapsuleShape3D_2270k")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64, 0.276223)
 
 [node name="GUI" parent="." instance=ExtResource("4_a36hr")]
+
+[node name="DamageSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ljnhu")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lqya2")
+
+[node name="MoveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_mcj5h")
 
 [connection signal="ammo_update" from="Head" to="." method="_on_head_ammo_update"]

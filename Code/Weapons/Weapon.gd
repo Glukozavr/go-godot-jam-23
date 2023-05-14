@@ -6,7 +6,7 @@ signal on_ammo_update
 signal on_hidden
 signal on_shown
 
-@export var anim_speed_multiplier:= 1
+@export var anim_speed_multiplier: float = 1
 
 @export var type:= "generic"
 @export var idle_anim:= "idle"
@@ -17,6 +17,10 @@ signal on_shown
 
 var is_busy:= false
 var is_ready_to_shoot:= false
+var player_vars: PlayerVariables
+
+func _ready():
+	player_vars = get_node("/root/GameMehanics")
 
 func play_idle():
 	if debug:
@@ -41,6 +45,8 @@ func play_attack():
 	else:
 		if _can_attack() and _play_anim(attack_anim):
 			_deliver_damager()
+			if $AttackSound:
+				$AttackSound.play()
 
 func _can_attack():
 	if debug:
@@ -50,7 +56,8 @@ func _can_attack():
 func _play_anim(anim_name):
 	if is_busy:
 		return false
-	$AnimatedSprite3D.play(anim_name, anim_speed_multiplier)
+	print("Playing animation with ", player_vars.get_motivation(), " and it will be ", anim_speed_multiplier * player_vars.get_motivation())
+	$AnimatedSprite3D.play(anim_name, anim_speed_multiplier * player_vars.get_motivation())
 	return true
 
 func _deliver_damager():

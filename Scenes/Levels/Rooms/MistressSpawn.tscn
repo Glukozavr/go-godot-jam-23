@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Code/Levels/Spawn.gd" id="1_x4cpg"]
+[ext_resource type="PackedScene" uid="uid://qlihxlbvpk8u" path="res://Scenes/Mistress.tscn" id="2_c7occ"]
+
+[node name="MistressSpawn" type="Node3D" groups=["Spawns"]]
+script = ExtResource("1_x4cpg")
+enemy_scene = ExtResource("2_c7occ")

@@ -1,0 +1,141 @@
+[gd_scene load_steps=21 format=3 uid="uid://bp54p7rqpw7tq"]
+
+[ext_resource type="Script" path="res://Code/Levels/Corridor.gd" id="1_claml"]
+[ext_resource type="PackedScene" uid="uid://cvbtf74vw55xf" path="res://Scenes/Levels/Perks/HealPerkItem.tscn" id="2_1waoi"]
+[ext_resource type="Material" uid="uid://bndb2j5cnqhbp" path="res://Materials/Floor_Simple_Mat.tres" id="2_bf4kc"]
+[ext_resource type="Material" uid="uid://c2w5ipr1vbyv7" path="res://Materials/Floor_Simpe_Cracked_Mat.tres" id="2_yeb3t"]
+[ext_resource type="PackedScene" uid="uid://b1jk2fuase1ml" path="res://Scenes/Levels/Perks/MagazinePerkItem.tscn" id="3_h80r6"]
+[ext_resource type="PackedScene" uid="uid://fp570abca2ug" path="res://Scenes/Levels/Perks/MazohismPerkItem.tscn" id="4_e84rl"]
+[ext_resource type="Material" uid="uid://1j3n2nr2krbv" path="res://Materials/Ceiling.tres" id="4_l11f1"]
+[ext_resource type="PackedScene" uid="uid://blwqr40qf2moo" path="res://Scenes/Levels/Basic/Door.tscn" id="5_ayqiv"]
+[ext_resource type="PackedScene" uid="uid://bcmdi7iveg5mr" path="res://Scenes/Levels/Perks/MotivationPerkItem.tscn" id="5_iy1kh"]
+[ext_resource type="PackedScene" uid="uid://dajnjyv33k4w" path="res://Scenes/Levels/Perks/RevengePerkItem.tscn" id="6_bi2sb"]
+[ext_resource type="PackedScene" uid="uid://chj2w2613jd1u" path="res://Scenes/GunItem.tscn" id="11_qwwph"]
+[ext_resource type="PackedScene" uid="uid://xnwk6l00f1i6" path="res://Scenes/SwordItem.tscn" id="12_uyrsi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qbrji"]
+material = ExtResource("2_yeb3t")
+size = Vector3(4, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pavtd"]
+size = Vector3(4, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dujgk"]
+material = ExtResource("2_bf4kc")
+size = Vector3(1, 4, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1b34d"]
+size = Vector3(1, 4, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_deaju"]
+material = ExtResource("4_l11f1")
+size = Vector3(6, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ugy0u"]
+size = Vector3(6, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w5sci"]
+material = ExtResource("2_bf4kc")
+size = Vector3(0.5, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_12eam"]
+size = Vector3(0.5, 4, 1)
+
+[node name="Corridor-Kitchen" type="Node3D"]
+script = ExtResource("1_claml")
+perks = Array[PackedScene]([ExtResource("2_1waoi"), ExtResource("3_h80r6"), ExtResource("4_e84rl"), ExtResource("5_iy1kh"), ExtResource("6_bi2sb")])
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_qbrji")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_pavtd")
+
+[node name="Wall" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 0)
+mesh = SubResource("BoxMesh_dujgk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D"]
+shape = SubResource("BoxShape3D_1b34d")
+
+[node name="Wall2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 0)
+mesh = SubResource("BoxMesh_dujgk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2/StaticBody3D"]
+shape = SubResource("BoxShape3D_1b34d")
+
+[node name="Ceiling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("BoxMesh_deaju")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ceiling"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/StaticBody3D"]
+shape = SubResource("BoxShape3D_ugy0u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Entrance" parent="." instance=ExtResource("5_ayqiv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 9.5)
+
+[node name="Exit" parent="." instance=ExtResource("5_ayqiv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -9.5)
+
+[node name="Part" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 1.5, 9.5)
+mesh = SubResource("BoxMesh_w5sci")
+skeleton = NodePath("../Entrance")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Part"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Part/StaticBody3D"]
+shape = SubResource("BoxShape3D_12eam")
+
+[node name="Part2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1.5, 9.5)
+mesh = SubResource("BoxMesh_w5sci")
+skeleton = NodePath("../Entrance")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Part2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Part2/StaticBody3D"]
+shape = SubResource("BoxShape3D_12eam")
+
+[node name="Part3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 1.5, -9.5)
+mesh = SubResource("BoxMesh_w5sci")
+skeleton = NodePath("../Exit")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Part3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Part3/StaticBody3D"]
+shape = SubResource("BoxShape3D_12eam")
+
+[node name="Part4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1.5, -9.5)
+mesh = SubResource("BoxMesh_w5sci")
+skeleton = NodePath("../Exit")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Part4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Part4/StaticBody3D"]
+shape = SubResource("BoxShape3D_12eam")
+
+[node name="PerkMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0417687, 1.39561, -5.57429)
+
+[node name="GunItem" parent="." instance=ExtResource("11_qwwph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.25, 1.25)
+
+[node name="SwordItem" parent="." instance=ExtResource("12_uyrsi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, -0.75)
+
+[connection signal="entered" from="Entrance" to="." method="_on_entrance_entered"]

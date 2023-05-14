@@ -1,0 +1,87 @@
+[gd_scene load_steps=17 format=3 uid="uid://b7hkmbtmpm876"]
+
+[ext_resource type="PackedScene" uid="uid://du4rxu0efaspq" path="res://Scenes/Levels/Rooms/Apartment/Corridor-Room.tscn" id="1_oec70"]
+[ext_resource type="PackedScene" uid="uid://b1jk2fuase1ml" path="res://Scenes/Levels/Perks/MagazinePerkItem.tscn" id="2_jrjdm"]
+[ext_resource type="PackedScene" uid="uid://b5208mrip282n" path="res://Scenes/Levels/Rooms/Apartment/Apartment1.tscn" id="2_xf464"]
+[ext_resource type="PackedScene" uid="uid://bcmdi7iveg5mr" path="res://Scenes/Levels/Perks/MotivationPerkItem.tscn" id="3_2hwg4"]
+[ext_resource type="PackedScene" uid="uid://culkmqryrdyio" path="res://Scenes/Player.tscn" id="3_6ehne"]
+[ext_resource type="PackedScene" uid="uid://3iio6nljrlvu" path="res://Scenes/Levels/Rooms/Apartment/Apartment2.tscn" id="3_x02aa"]
+[ext_resource type="PackedScene" uid="uid://dajnjyv33k4w" path="res://Scenes/Levels/Perks/RevengePerkItem.tscn" id="4_jmv4p"]
+[ext_resource type="PackedScene" uid="uid://bp54p7rqpw7tq" path="res://Scenes/Levels/Rooms/Kitchen/Corridor-Kitchen.tscn" id="5_3uv1u"]
+[ext_resource type="PackedScene" uid="uid://cc207lyjvfo5c" path="res://Scenes/Levels/Rooms/Kitchen/Kitchen1.tscn" id="5_7ansl"]
+[ext_resource type="PackedScene" uid="uid://b8pr1gkru3k8j" path="res://Scenes/Levels/Rooms/Basement/Corridor-Basement.tscn" id="5_oo83j"]
+[ext_resource type="PackedScene" uid="uid://brl151u2qp7mb" path="res://Scenes/Levels/Rooms/Basement/Basement1.tscn" id="9_hx1b8"]
+[ext_resource type="FontFile" uid="uid://0xyfj1uyswrv" path="res://Assets/Font/joystix monospace.otf" id="11_v4hmb"]
+[ext_resource type="AudioStream" uid="uid://ouyforlw7y1n" path="res://Assets/Sounds/Music/EmptyCity.ogg" id="12_ocn1t"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gvay0"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ipgx5"]
+sky_material = SubResource("ProceduralSkyMaterial_gvay0")
+
+[sub_resource type="Environment" id="Environment_68jjj"]
+background_mode = 2
+sky = SubResource("Sky_ipgx5")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.9
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_68jjj")
+
+[node name="Corridor-Room" parent="." instance=ExtResource("1_oec70")]
+perks = Array[PackedScene]([ExtResource("2_jrjdm"), ExtResource("3_2hwg4"), ExtResource("4_jmv4p")])
+free_entrance = false
+free_exit = true
+
+[node name="Apartment1" parent="." node_paths=PackedStringArray("exit_corridor") instance=ExtResource("2_xf464")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+exit_corridor = NodePath("../Corridor-Room2")
+
+[node name="Corridor-Room2" parent="." instance=ExtResource("1_oec70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+free_entrance = false
+free_exit = true
+
+[node name="Apartment2" parent="." node_paths=PackedStringArray("exit_corridor") instance=ExtResource("3_x02aa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -70)
+exit_corridor = NodePath("../Corridor-Kitchen")
+
+[node name="Corridor-Kitchen" parent="." instance=ExtResource("5_3uv1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -90)
+free_entrance = false
+free_exit = true
+
+[node name="Kitchen1" parent="." node_paths=PackedStringArray("exit_corridor") instance=ExtResource("5_7ansl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -130)
+exit_corridor = NodePath("../Corridor-Basement")
+
+[node name="Corridor-Basement" parent="." instance=ExtResource("5_oo83j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -170)
+free_entrance = false
+free_exit = true
+
+[node name="Basement1" parent="." node_paths=PackedStringArray("exit_corridor") instance=ExtResource("9_hx1b8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -190)
+exit_corridor = NodePath("../Corridor-Basement2")
+
+[node name="Corridor-Basement2" parent="." instance=ExtResource("5_oo83j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -270)
+free_entrance = false
+
+[node name="Label3D" type="Label3D" parent="Corridor-Basement2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, -5.5)
+text = "THE END"
+font = ExtResource("11_v4hmb")
+
+[node name="Player" parent="." instance=ExtResource("3_6ehne")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5.5)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ocn1t")
+autoplay = true

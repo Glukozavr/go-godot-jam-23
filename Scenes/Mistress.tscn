@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://qlihxlbvpk8u"]
+[gd_scene load_steps=22 format=3 uid="uid://qlihxlbvpk8u"]
 
 [ext_resource type="Script" path="res://Code/Enemies/Shooter.gd" id="1_yk0vy"]
 [ext_resource type="PackedScene" uid="uid://bqufoe57iv1bm" path="res://Scenes/Strike.tscn" id="2_bhmey"]
@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://shb5j0r6pv1f" path="res://Assets/Enemies/Mistress/MistressWalk2.png" id="13_y541g"]
 [ext_resource type="Texture2D" uid="uid://b7ka4qcbjbtqu" path="res://Assets/Enemies/Mistress/MistressWalk3.png" id="14_1m8kj"]
 [ext_resource type="Texture2D" uid="uid://bbc2lulu15u4i" path="res://Assets/Enemies/Mistress/MistressWalk4.png" id="15_e3jp2"]
+[ext_resource type="AudioStream" uid="uid://biwp1hxolydbn" path="res://Assets/Sounds/MissAttack.wav" id="16_nv6t3"]
+[ext_resource type="AudioStream" uid="uid://dky0jcpxvm83e" path="res://Assets/Sounds/ShooterMovement1.wav" id="17_iqpgp"]
+[ext_resource type="AudioStream" uid="uid://byr4lsdv7l1eu" path="res://Assets/Sounds/ShooterDeath1.wav" id="18_6crke"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4xuku"]
 
@@ -97,13 +100,14 @@ health = 100
 speed = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.21794, 0, 0, 0, 1.74554, 0, 0, 0, 1.24663, 0, 0, 0)
+transform = Transform3D(0.937, 0, 0, 0, 1.351, 0, 0, 0, 0.966, 0, -0.326648, 0)
 shape = SubResource("CapsuleShape3D_4xuku")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.877, 0, 0, 0, 0.877, 0, 0, 0, 0.877, 0, -0.20593, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_cbtah")
-animation = &"attack"
+animation = &"idle"
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 4
@@ -117,6 +121,15 @@ shape = SubResource("BoxShape3D_jhqvh")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125246, 0.375727, -1.41525)
 
 [node name="DeathTimer" type="Timer" parent="."]
+
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("16_nv6t3")
+
+[node name="MoveSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("17_iqpgp")
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("18_6crke")
 
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
 [connection signal="animation_looped" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_looped"]

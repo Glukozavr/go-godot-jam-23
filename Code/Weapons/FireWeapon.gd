@@ -7,19 +7,23 @@ extends Weapon
 @export var bullets_total:= 5
 var bullets:= 5
 
+func get_total_bullets():
+	return bullets_total + player_vars.get_magazine()
+
 func play_show():
-	bullets = bullets_total
+	bullets = get_total_bullets()
 	super.play_show()
 
 func play_reload():
 	if debug:
 		print_debug("Weapon ", type, " reloads")
 	_play_anim(reload_anim)
+	$ReloadSound.play()
 
 func _update_ammo():
 	if debug:
-		print_debug("Weapon ", type, " updates ammo", bullets, bullets_total)
-	on_ammo_update.emit(bullets, bullets_total)
+		print_debug("Weapon ", type, " updates ammo", bullets, get_total_bullets())
+	on_ammo_update.emit(bullets, get_total_bullets())
 
 func _can_attack():
 	super._can_attack()
@@ -47,5 +51,5 @@ func _on_animated_sprite_3d_animation_finished():
 	super._on_animated_sprite_3d_animation_finished()
 	var anim_name = $AnimatedSprite3D.animation
 	if anim_name == reload_anim:
-		bullets = bullets_total
+		bullets = get_total_bullets()
 		_update_ammo()

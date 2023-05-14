@@ -6,4 +6,5 @@ extends Weapon
 func _deliver_damager():
 	var bodies = $Area3D.get_overlapping_bodies()
 	for b in bodies:
-		b.receive_damage(damage)
+		print("So, with revenge ", player_vars.get_revenge(), " and gamage ", damage, " we get ", damage * player_vars.get_revenge())
+		b.receive_damage(damage * player_vars.get_revenge())

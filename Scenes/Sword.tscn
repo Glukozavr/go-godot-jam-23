@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnuwyhqalld81"]
+[gd_scene load_steps=15 format=3 uid="uid://cnuwyhqalld81"]
 
 [ext_resource type="Script" path="res://Code/Weapons/ColdWeapon.gd" id="1_ounta"]
 [ext_resource type="Texture2D" uid="uid://dyar4kho8wfu0" path="res://Assets/Weapons/Sword/Sword-Attack-0.png" id="2_ey1fa"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c0d05ohvapus4" path="res://Assets/Weapons/Sword/Sword-Show-2.png" id="9_30ni7"]
 [ext_resource type="Texture2D" uid="uid://6gk1scle1unq" path="res://Assets/Weapons/Sword/Sword-Show-1.png" id="10_qjml3"]
 [ext_resource type="Texture2D" uid="uid://btbngsryprw1s" path="res://Assets/Weapons/Sword/Sword-Show-0.png" id="11_v8xor"]
+[ext_resource type="AudioStream" uid="uid://y2l3gqwfl0qj" path="res://Assets/Sounds/KatanaAttack.wav" id="12_qt8ky"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ttcif"]
 animations = [{
@@ -90,7 +91,14 @@ animations = [{
 
 [node name="Sword" type="Node3D"]
 script = ExtResource("1_ounta")
+damage = null
+anim_speed_multiplier = null
 type = "sword"
+idle_anim = null
+show_anim = null
+hide_anim = null
+attack_anim = null
+debug = null
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ttcif")
@@ -104,8 +112,11 @@ collision_layer = 8
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 1.01101)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0.513938)
 shape = SubResource("BoxShape3D_ixs56")
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_qt8ky")
 
 [connection signal="animation_changed" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwmj6xnieugcp"]
+
+[ext_resource type="Script" path="res://Code/Levels/Spawn.gd" id="1_cqniv"]
+[ext_resource type="PackedScene" uid="uid://drla58xyy6wgy" path="res://Scenes/Shooter.tscn" id="2_gd2ce"]
+
+[node name="ShooterSpawn" type="Node3D" groups=["Spawns"]]
+script = ExtResource("1_cqniv")
+enemy_scene = ExtResource("2_gd2ce")

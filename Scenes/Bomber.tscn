@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://fqmvck0ndovu"]
+[gd_scene load_steps=18 format=3 uid="uid://fqmvck0ndovu"]
 
 [ext_resource type="Script" path="res://Code/Enemies/Bomber.gd" id="1_ft8np"]
 [ext_resource type="Texture2D" uid="uid://dii8usqtseumj" path="res://Assets/Enemies/Bomber/Bomber-Fly-0.png" id="2_mglkt"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://dt2u8i8ud63f" path="res://Assets/Enemies/Explosion/Explosion-4.png" id="6_6xyfe"]
 [ext_resource type="Texture2D" uid="uid://cw4d7yqjc16i5" path="res://Assets/Enemies/Bomber/Bomber-Fly-4.png" id="6_y0pm4"]
 [ext_resource type="Texture2D" uid="uid://b5k8lmkj0knx0" path="res://Assets/Enemies/Explosion/Explosion-5.png" id="7_el74v"]
+[ext_resource type="AudioStream" uid="uid://d4mm5uerssc60" path="res://Assets/Sounds/BomberExp1.wav" id="13_km7as"]
+[ext_resource type="AudioStream" uid="uid://duq14hq6wgjdn" path="res://Assets/Sounds/BomberMovement2.ogg" id="14_kjarp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1ta0l"]
 animations = [{
@@ -68,12 +70,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.489969)
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_ft8np")
-health = 20
-is_flying = true
-fly_height = 2
-anim_walk = "idle"
-anim_attack = "idle"
-debug = true
+health = 30
+speed = 6
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 billboard = 1
@@ -97,6 +95,12 @@ shape = SubResource("BoxShape3D_ua7pg")
 
 [node name="DeathTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("13_km7as")
+
+[node name="MoveSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("14_kjarp")
 
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

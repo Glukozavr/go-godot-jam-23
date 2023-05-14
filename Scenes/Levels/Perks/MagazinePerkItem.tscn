@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1jk2fuase1ml"]
+
+[ext_resource type="Script" path="res://Code/Item.gd" id="1_n64ky"]
+[ext_resource type="Texture2D" uid="uid://mp1vnhciyoo4" path="res://Assets/Perks/IconsPerkJiviiMagazin.png" id="2_vwqmj"]
+[ext_resource type="AudioStream" uid="uid://cv1x2qprieeqx" path="res://Assets/Sounds/Perk.wav" id="3_71w5d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pbf7"]
+
+[node name="MagazinePerkItem" type="Node3D"]
+script = ExtResource("1_n64ky")
+type = "magazine"
+description = "Less Health is More Bullets "
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("2_vwqmj")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(2.07813, 0, 0, 0, 1.46166, 0, 0, 0, 2.25031, 0, 0, 0)
+shape = SubResource("BoxShape3D_7pbf7")
+
+[node name="ActionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_71w5d")
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 1.1
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

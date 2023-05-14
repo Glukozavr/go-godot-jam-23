@@ -6,9 +6,11 @@ extends Node3D
 @export var type: = "sword"
 @export var description: = "A weapon"
 @export var debug: = false
+var consumed: = false
 
 func _ready():
-	$AnimatedSprite3D.play("default")
+	if $AnimatedSprite3D:
+		$AnimatedSprite3D.play("default")
 
 func _on_area_3d_body_entered(body):
 	if debug:
@@ -23,6 +25,17 @@ func _on_area_3d_body_exited(body):
 	
 	
 func consume():
+	if consumed:
+		return
+	consumed = true
+	if $ActionSound:
+		$ActionSound.play()
 	if debug:
 		print_debug("Item with type ", type, ": used")
+	visible = false
+	if $DeathTimer:
+		$DeathTimer.start()
+
+
+func _on_death_timer_timeout():
 	queue_free()

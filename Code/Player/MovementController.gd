@@ -13,6 +13,17 @@ var input_axis := Vector2()
 @onready var gravity: float = (ProjectSettings.get_setting("physics/3d/default_gravity") 
 		* gravity_multiplier)
 
+var player_vars: PlayerVariables
+
+func _ready():
+	if not player_vars:
+		player_vars = get_node("/root/GameMehanics")
+
+func get_speed():
+	if not player_vars:
+		player_vars = get_node("/root/GameMehanics")
+	return speed * player_vars.get_motivation()
+
 # Called every physics tick. 'delta' is constant
 func _physics_process(delta: float) -> void:
 	input_axis = Input.get_vector(&"move_back", &"move_forward",
@@ -28,6 +39,11 @@ func _physics_process(delta: float) -> void:
 	
 	accelerate(delta)
 	move_and_slide()
+	
+	if is_on_floor() and (velocity.x != 0 or velocity.z != 0):
+		$MoveSound.play()
+	else:
+		$MoveSound.stop()
 
 func direction_input() -> void:
 	direction = Vector3()
@@ -41,7 +57,7 @@ func accelerate(delta: float) -> void:
 	temp_vel.y = 0
 	
 	var temp_accel: float
-	var target: Vector3 = direction * speed
+	var target: Vector3 = direction * get_speed()
 	
 	if direction.dot(temp_vel) > 0:
 		temp_accel = acceleration

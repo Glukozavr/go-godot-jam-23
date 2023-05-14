@@ -1,3 +1,7 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://cgsa7svvmtr06"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cgsa7svvmtr06"]
+
+[ext_resource type="Texture2D" uid="uid://j3ihhnyld54f" path="res://Assets/Environment/Floor8.png" id="1_faiei"]
 
 [resource]
+albedo_texture = ExtResource("1_faiei")
+uv1_triplanar = true

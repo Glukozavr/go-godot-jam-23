@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=20 format=3 uid="uid://diqf5vs6cj1x7"]
 
 [ext_resource type="Script" path="res://Code/Weapons/FireWeapon.gd" id="1_8imo0"]
 [ext_resource type="PackedScene" uid="uid://ifbix6aew7ca" path="res://Scenes/Bullet.tscn" id="2_82fbb"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://ckevbly2sb38l" path="res://Assets/Weapons/Gun/Gun-Reload-3.png" id="12_b2ude"]
 [ext_resource type="Texture2D" uid="uid://bpg5mfp0xsrm3" path="res://Assets/Weapons/Gun/Gun-Reload-4.png" id="13_oegiv"]
 [ext_resource type="Texture2D" uid="uid://cys8b57akn7vo" path="res://Assets/Weapons/Aim.png" id="14_ood75"]
+[ext_resource type="AudioStream" uid="uid://bir6y5sskwr8x" path="res://Assets/Sounds/GunAttack2.wav" id="16_4bdq1"]
+[ext_resource type="AudioStream" uid="uid://rjbcmgblj6it" path="res://Assets/Sounds/Reload.wav" id="17_y6e8i"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j0cym"]
 animations = [{
@@ -103,6 +105,7 @@ animations = [{
 [node name="Gun" type="Node3D"]
 script = ExtResource("1_8imo0")
 bullet_scene = ExtResource("2_82fbb")
+bullets_total = 3
 type = "gun"
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
@@ -133,6 +136,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46352, -0.840832)
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
 mesh = SubResource("SphereMesh_u2kl4")
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_4bdq1")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_y6e8i")
 
 [connection signal="animation_changed" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_changed"]
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]

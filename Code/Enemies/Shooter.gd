@@ -3,6 +3,10 @@ extends Enemy
 @export var bullet_scene: PackedScene
 
 func _attack_target():
+	if $MoveSound:
+		$MoveSound.stop()
+	if $AttackSound:
+		$AttackSound.play()
 	if not $AnimatedSprite3D.is_playing() or $AnimatedSprite3D.animation != anim_attack:
 		shoot()
 

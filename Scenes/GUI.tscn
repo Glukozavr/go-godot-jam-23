@@ -1,16 +1,27 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnmnja2rhsmka"]
+[gd_scene load_steps=20 format=3 uid="uid://cnmnja2rhsmka"]
 
 [ext_resource type="Script" path="res://Code/GUI/GUI.gd" id="1_508qe"]
 [ext_resource type="Texture2D" uid="uid://xqoug0lxwr5t" path="res://Assets/GUI/HP-0.png" id="1_tmk81"]
 [ext_resource type="Texture2D" uid="uid://cxabgha7ld6xf" path="res://Assets/GUI/AMMO-0.png" id="1_yg1tx"]
-[ext_resource type="Texture2D" uid="uid://c8dbhvek0aj13" path="res://Assets/GUI/AMMO-1.png" id="2_4afrc"]
 [ext_resource type="Texture2D" uid="uid://dbhxn7tl1wwce" path="res://Assets/GUI/AMMO-2.png" id="3_2f4t2"]
 [ext_resource type="Texture2D" uid="uid://dt0ybe8qh0e12" path="res://Assets/GUI/HP-2.png" id="3_8ms4d"]
 [ext_resource type="Texture2D" uid="uid://djuevnjhxxpb5" path="res://Assets/GUI/HP-3.png" id="4_ww1ni"]
+[ext_resource type="Texture2D" uid="uid://y8w2m2ka8704" path="res://Assets/Perks/IconsPerkMotivation.png" id="8_cfagg"]
+[ext_resource type="Texture2D" uid="uid://76diqp10aweq" path="res://Assets/Perks/IconsPerkPomsta.png" id="9_ekjyk"]
+[ext_resource type="FontFile" uid="uid://0xyfj1uyswrv" path="res://Assets/Font/joystix monospace.otf" id="9_yo12o"]
 [ext_resource type="Texture2D" uid="uid://cksxky5m2yars" path="res://Assets/GUI/DamageFull.png" id="10_16px7"]
+[ext_resource type="Texture2D" uid="uid://cxrb0ontq4lop" path="res://Assets/Perks/IconsPerkMasochism.png" id="10_hivsp"]
+[ext_resource type="Texture2D" uid="uid://mp1vnhciyoo4" path="res://Assets/Perks/IconsPerkJiviiMagazin.png" id="11_vdj11"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gat1r"]
+font = ExtResource("9_yo12o")
 font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_nk10k"]
+font = ExtResource("9_yo12o")
+
+[sub_resource type="LabelSettings" id="LabelSettings_nun2a"]
+font = ExtResource("9_yo12o")
 
 [sub_resource type="Animation" id="Animation_ld7yb"]
 length = 0.001
@@ -21,7 +32,7 @@ tracks/0/path = NodePath("DamageIndicator:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
@@ -49,18 +60,40 @@ _data = {
 "damage": SubResource("Animation_ulp3t")
 }
 
-[node name="GUI" type="Control"]
+[sub_resource type="LabelSettings" id="LabelSettings_8okou"]
+font = ExtResource("9_yo12o")
+font_size = 24
+
+[node name="GUI" type="Control" node_paths=PackedStringArray("motivation_perk", "motivation_label", "revenge_perk", "revenge_label", "magazine_perk", "magazine_label", "mazohist_perk", "mazohist_label")]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
 script = ExtResource("1_508qe")
+motivation_perk = NodePath("Perks/Motivation")
+motivation_label = NodePath("Perks/Motivation/Label")
+revenge_perk = NodePath("Perks/Revenge")
+revenge_label = NodePath("Perks/Revenge/Label")
+magazine_perk = NodePath("Perks/Magazine")
+magazine_label = NodePath("Perks/Magazine/Label")
+mazohist_perk = NodePath("Perks/Mazohist")
+mazohist_label = NodePath("Perks/Mazohist/Label")
 hearts_imgs = Array[Texture2D]([ExtResource("1_tmk81"), ExtResource("3_8ms4d"), ExtResource("4_ww1ni")])
-bullets_imgs = Array[Texture2D]([ExtResource("1_yg1tx"), ExtResource("2_4afrc"), ExtResource("3_2f4t2")])
+bullets_imgs = Array[Texture2D]([ExtResource("1_yg1tx"), ExtResource("3_2f4t2")])
 
 [node name="PickUp" type="Control" parent="."]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_right = -536.0
 offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="PickUp"]
 layout_mode = 0
@@ -75,21 +108,38 @@ vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="PickUp"]
 layout_mode = 0
-offset_left = 552.0
+offset_left = 528.0
 offset_top = 312.0
-offset_right = 624.0
+offset_right = 647.0
 offset_bottom = 338.0
 text = "to pickup"
+label_settings = SubResource("LabelSettings_nk10k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="PickUp"]
+layout_mode = 0
+offset_left = 526.0
+offset_top = 337.0
+offset_right = 645.0
+offset_bottom = 363.0
+text = "to pickup"
+label_settings = SubResource("LabelSettings_nun2a")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DamageIndicator" type="TextureRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-offset_right = 1152.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("10_16px7")
-expand_mode = 3
+expand_mode = 2
 stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -99,12 +149,9 @@ libraries = {
 
 [node name="Health" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
+anchors_preset = 0
 offset_right = 450.0
 offset_bottom = 136.0
-grow_vertical = 0
 
 [node name="Heart-1" type="TextureRect" parent="Health"]
 layout_mode = 0
@@ -116,8 +163,8 @@ stretch_mode = 4
 
 [node name="Heart-2" type="TextureRect" parent="Health"]
 layout_mode = 0
-offset_left = 90.0
-offset_right = 177.429
+offset_left = 80.0
+offset_right = 167.429
 offset_bottom = 136.0
 texture = ExtResource("4_ww1ni")
 expand_mode = 3
@@ -125,8 +172,8 @@ stretch_mode = 4
 
 [node name="Heart-3" type="TextureRect" parent="Health"]
 layout_mode = 0
-offset_left = 180.0
-offset_right = 267.429
+offset_left = 160.0
+offset_right = 247.429
 offset_bottom = 136.0
 texture = ExtResource("4_ww1ni")
 expand_mode = 3
@@ -134,8 +181,8 @@ stretch_mode = 4
 
 [node name="Heart-4" type="TextureRect" parent="Health"]
 layout_mode = 0
-offset_left = 270.0
-offset_right = 357.429
+offset_left = 230.0
+offset_right = 317.429
 offset_bottom = 136.0
 texture = ExtResource("4_ww1ni")
 expand_mode = 3
@@ -143,8 +190,8 @@ stretch_mode = 4
 
 [node name="Heart-5" type="TextureRect" parent="Health"]
 layout_mode = 0
-offset_left = 360.0
-offset_right = 447.429
+offset_left = 300.0
+offset_right = 387.429
 offset_bottom = 136.0
 texture = ExtResource("4_ww1ni")
 expand_mode = 3
@@ -152,16 +199,12 @@ stretch_mode = 4
 
 [node name="Ammo" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 702.0
-offset_right = 1152.0
+offset_left = -450.0
 offset_bottom = 136.0
 grow_horizontal = 0
-grow_vertical = 0
 
 [node name="Bullet-1" type="TextureRect" parent="Ammo"]
 layout_mode = 0
@@ -174,6 +217,24 @@ stretch_mode = 4
 
 [node name="Bullet-2" type="TextureRect" parent="Ammo"]
 layout_mode = 0
+offset_left = 330.0
+offset_right = 414.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-3" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 300.0
+offset_right = 384.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-4" type="TextureRect" parent="Ammo"]
+layout_mode = 0
 offset_left = 270.0
 offset_right = 354.214
 offset_bottom = 131.0
@@ -181,7 +242,25 @@ texture = ExtResource("3_2f4t2")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Bullet-3" type="TextureRect" parent="Ammo"]
+[node name="Bullet-5" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 240.0
+offset_right = 324.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-6" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 210.0
+offset_right = 294.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-7" type="TextureRect" parent="Ammo"]
 layout_mode = 0
 offset_left = 180.0
 offset_right = 264.214
@@ -190,7 +269,25 @@ texture = ExtResource("3_2f4t2")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Bullet-4" type="TextureRect" parent="Ammo"]
+[node name="Bullet-8" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 150.0
+offset_right = 234.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-9" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 204.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-10" type="TextureRect" parent="Ammo"]
 layout_mode = 0
 offset_left = 90.0
 offset_right = 174.214
@@ -199,10 +296,120 @@ texture = ExtResource("3_2f4t2")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Bullet-5" type="TextureRect" parent="Ammo"]
+[node name="Bullet-11" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 60.0
+offset_right = 144.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-12" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = 30.0
+offset_right = 114.214
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Bullet-13" type="TextureRect" parent="Ammo"]
 layout_mode = 0
 offset_right = 84.2143
 offset_bottom = 131.0
 texture = ExtResource("3_2f4t2")
 expand_mode = 3
 stretch_mode = 4
+
+[node name="Bullet-14" type="TextureRect" parent="Ammo"]
+layout_mode = 0
+offset_left = -30.0
+offset_right = 54.2143
+offset_bottom = 131.0
+texture = ExtResource("3_2f4t2")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Perks" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = 98.0
+offset_right = -34.0
+offset_bottom = 138.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+
+[node name="Motivation" type="TextureRect" parent="Perks"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 80.0
+texture = ExtResource("8_cfagg")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Perks/Motivation"]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 122.0
+text = "1"
+label_settings = SubResource("LabelSettings_8okou")
+horizontal_alignment = 1
+
+[node name="Revenge" type="TextureRect" parent="Perks"]
+layout_mode = 0
+offset_left = -90.0
+offset_right = -10.0
+offset_bottom = 80.0
+texture = ExtResource("9_ekjyk")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Perks/Revenge"]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 122.0
+text = "1"
+label_settings = SubResource("LabelSettings_8okou")
+horizontal_alignment = 1
+
+[node name="Mazohist" type="TextureRect" parent="Perks"]
+layout_mode = 0
+offset_left = -180.0
+offset_right = -100.0
+offset_bottom = 80.0
+texture = ExtResource("10_hivsp")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Perks/Mazohist"]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 122.0
+text = "1"
+label_settings = SubResource("LabelSettings_8okou")
+horizontal_alignment = 1
+
+[node name="Magazine" type="TextureRect" parent="Perks"]
+layout_mode = 0
+offset_left = -270.0
+offset_right = -190.0
+offset_bottom = 80.0
+texture = ExtResource("11_vdj11")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Perks/Magazine"]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 80.0
+offset_bottom = 122.0
+text = "1"
+label_settings = SubResource("LabelSettings_8okou")
+horizontal_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://drla58xyy6wgy"]
+[gd_scene load_steps=22 format=3 uid="uid://drla58xyy6wgy"]
 
 [ext_resource type="Script" path="res://Code/Enemies/Shooter.gd" id="1_pa6h3"]
 [ext_resource type="PackedScene" uid="uid://cmxtmwiu1c6x0" path="res://Scenes/PlasmaBall.tscn" id="2_u1xxb"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://5lwo7bsr7e2x" path="res://Assets/Enemies/Shooter/Shooter_Walk_2.png" id="12_5hlen"]
 [ext_resource type="Texture2D" uid="uid://dyqaly7wyscxq" path="res://Assets/Enemies/Shooter/Shooter_Walk_3.png" id="13_73fds"]
 [ext_resource type="Texture2D" uid="uid://rckbuupmmcg4" path="res://Assets/Enemies/Shooter/Shooter_Walk_4.png" id="14_3vc34"]
+[ext_resource type="AudioStream" uid="uid://dd644bwx530a7" path="res://Assets/Sounds/ShooterAttack.wav" id="15_i6u34"]
+[ext_resource type="AudioStream" uid="uid://xetwco8kabmq" path="res://Assets/Sounds/ShooterDeath4.wav" id="16_c0odw"]
+[ext_resource type="AudioStream" uid="uid://d0yu7aim88vru" path="res://Assets/Sounds/ShooterMovement2.wav" id="17_oacjv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lr5rh"]
 
@@ -80,6 +83,7 @@ animations = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nar8"]
+size = Vector3(5, 2, 5)
 
 [sub_resource type="SphereMesh" id="SphereMesh_c7ego"]
 
@@ -88,24 +92,24 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_pa6h3")
 bullet_scene = ExtResource("2_u1xxb")
-health = 80
+health = 60
 speed = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.2, 0, 0, 0, 1.8, 0, 0, 0, 1.2, 0.000149727, 0, 0)
+transform = Transform3D(1.2, 0, 0, 0, 1.4, 0, 0, 0, 1.2, 0.000149727, 0, 0)
 shape = SubResource("CapsuleShape3D_lr5rh")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.899, 0, 0, 0, 0.899, 0, 0, 0, 0.899, 0, 0, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_we1t3")
 animation = &"attack"
 
 [node name="Area3D" type="Area3D" parent="."]
-collision_layer = 4
+collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(16.0316, 0, 0, 0, 1, 0, 0, 0, 14.0526, 0, 0, 0)
 shape = SubResource("BoxShape3D_6nar8")
 
 [node name="LaunchMarker" type="Node3D" parent="."]
@@ -117,6 +121,15 @@ visible = false
 mesh = SubResource("SphereMesh_c7ego")
 
 [node name="DeathTimer" type="Timer" parent="."]
+
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("15_i6u34")
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("16_c0odw")
+
+[node name="MoveSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("17_oacjv")
 
 [connection signal="animation_finished" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_finished"]
 [connection signal="animation_looped" from="AnimatedSprite3D" to="." method="_on_animated_sprite_3d_animation_looped"]
