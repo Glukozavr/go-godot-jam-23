@@ -1,30 +1,26 @@
-# First Person Starter ![Godot 4.0](https://img.shields.io/badge/godot-v4.0-%23478cbf)
-![Screenshot of FirstPersonStarter Template](https://i.imgur.com/gFDpPlj.png)
+# PropaGUNda ![Godot 4.0](https://img.shields.io/badge/godot-v4.0-%23478cbf)
+![Screenshot of PropaGUNda Banner](./Assets//Banner.png)
 
-FPS template for Godot to give starter content for a new or already existing project!
-> **Note**: Looking for Godot 3.x version? Checkout [`gd-3.x branch`](https://github.com/Whimfoome/godot-FirstPersonStarter/tree/gd-3.x).
+The game is built for [Go Godot 4 Game Jam](https://itch.io/jam/go-godot-jam-4)
+You can try it out [HERE](https://glukozavr.itch.io/propagunda)
 
-#### Includes:
-- 3D Character Controller
-  - Smooth Movement (Acceleration and Deceleration)
-  - Smooth Camera Rotation
-  - Handles Slopes
-  - Optional Sprinting
-  - Air Control
-  - Highly Modular
-  - Easily Adjustable from the Inspector
-  - Joypad Controller Support (Thanks to [florianvazelle](https://github.com/florianvazelle))
-- Example 3D Scene
+The game is HTML5-ready and have some UI issues, but it works!
 
-#### Project Controls:
-- Move with `W` `A` `S` `D` or `↑` `←` `↓` `→`
-- Jump with `Space`. Sprint with `Shift`
-- Unlock/Lock Mouse with `Shift + F1`
-- Close Game with `Esc`
-- *If you haven't imported the whole project, you should add them manually!*
+## Theme is LESS IS MORE
 
-#### Credits:
-- Grid Texture/s from [KenneyNL](https://www.kenney.nl/assets/prototype-textures)
-- To create this project I watched [Jeremy Bullock's Godot First Person Controller Series](https://www.youtube.com/watch?v=Etpq-d5af6M&list=PLTZoMpB5Z4aD-rCpluXsQjkGYgUGUZNIV)
-- Thanks to the awesome Godot community for being helpful to anyone with problems, for making amazing tutorials, for writing the documentation and being supportive.
+For this game we defined it as Less HEALTH is More POWER!
 
+This is a shooter game, that have 2 weapon types - katana and a gun.
+
+Main mechanics are perks, that you randomly get in between round.
+
+1. Motivation! Less Health is More Speed
+2. Revenge! Less Health is More Damage
+3. Blood Magazine! Less Health is More Bullets
+4. Mazohism! Less Health is More Everything!
+
+And also you can heal sometimes. 
+
+Created by [Viktor aka Glukozavr](https://twitter.com/Glukozavr) and [Max Kravchenko](https://twitter.com/i_am_max_k)
+
+Game is started with an [FPS template for Godot](https://github.com/Whimfoome/godot-FirstPersonStarter)
