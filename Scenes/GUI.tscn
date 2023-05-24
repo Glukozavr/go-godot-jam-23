@@ -66,9 +66,12 @@ font_size = 24
 
 [node name="GUI" type="Control" node_paths=PackedStringArray("motivation_perk", "motivation_label", "revenge_perk", "revenge_label", "magazine_perk", "magazine_label", "mazohist_perk", "mazohist_label")]
 layout_mode = 3
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_508qe")
 motivation_perk = NodePath("Perks/Motivation")
 motivation_label = NodePath("Perks/Motivation/Label")
@@ -129,18 +132,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DamageIndicator" type="TextureRect" parent="."]
-visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 648.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("10_16px7")
 expand_mode = 2
-stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
